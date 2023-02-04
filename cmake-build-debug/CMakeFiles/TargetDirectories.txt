@@ -1,0 +1,3 @@
+/Users/bytedance/study/T-RPC/cmake-build-debug/CMakeFiles/T_RPC.dir
+/Users/bytedance/study/T-RPC/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/bytedance/study/T-RPC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
