@@ -28,6 +28,22 @@ public:
     AtomicNode* Dequeue();
 };
 
+LFQueue::LFQueue() {
+    auto node=new AtomicNode;
+    node->_info.store(0);
+    int64_t val;
+    auto ptr=reinterpret_cast<int32_t *>(&val);
+    ptr[0]=reinterpret_cast<int32_t >(node);
+    ptr[1]=0;
+    _tail.store(val);
+    _head.store(val);
+}
+LFQueue::~LFQueue() {
+    int64_t val=_head.load();
+    auto ptr=reinterpret_cast<int32_t *>(&val);
+    auto node=reinterpret_cast<AtomicNode*>(ptr[0]);
+    delete node;
+}
 void LFQueue::Enqueue(AtomicNode *node) {
     int64_t val=0;
     auto ptr=reinterpret_cast<int32_t *>(&val);
