@@ -1,6 +1,14 @@
 #include <iostream>
+#include <atomic>
+using namespace std;
 
+struct A{
+    uintptr_t next;
+    uint64_t seq;
+};
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    atomic<A>t;
+
+    std::cout <<t.is_lock_free() << std::endl;
     return 0;
 }

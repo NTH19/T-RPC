@@ -7,63 +7,54 @@
 #ifndef T_RPC_LFQUEUE_H
 #define T_RPC_LFQUEUE_H
 #include <cstdint>
+#include "cassert"
 #include <atomic>
-using AtomicInfo =std::atomic_int64_t;
 
-struct AtomicNode
-{
-    volatile AtomicInfo _info;
-    void* data;
+#include<queue>
+
+struct alignas(16) NodeInfo{
+    uintptr_t next;
+    uint64_t seq;
 };
-
-
-class LFQueue
-{
-    volatile AtomicInfo _tail;
-    volatile AtomicInfo _head;
+using AtomicNodeInfo=std::atomic<NodeInfo>;
+struct Node{
+    uintptr_t data;
+    AtomicNodeInfo info;
+};
+class LFQueue{
+private:
+    volatile AtomicNodeInfo head_,tail_;
 public:
     LFQueue();
     ~LFQueue();
-    void Enqueue(AtomicNode* node);
-    AtomicNode* Dequeue();
+    void Enqueue(Node*node);
+    Node* Dequeue();
 };
-
 LFQueue::LFQueue() {
-    auto node=new AtomicNode;
-    node->_info.store(0);
-    int64_t val;
-    auto ptr=reinterpret_cast<int32_t *>(&val);
-    ptr[0]=reinterpret_cast<int32_t >(node);
-    ptr[1]=0;
-    _tail.store(val);
-    _head.store(val);
+    assert(head_.is_lock_free());
+    auto ptr=new Node{0,NodeInfo{0,0}};
+    head_.store(NodeInfo{reinterpret_cast<uintptr_t>(ptr),0});
+    tail_.store(head_);
 }
 LFQueue::~LFQueue() {
-    int64_t val=_head.load();
-    auto ptr=reinterpret_cast<int32_t *>(&val);
-    auto node=reinterpret_cast<AtomicNode*>(ptr[0]);
-    delete node;
+
 }
-void LFQueue::Enqueue(AtomicNode *node) {
-    int64_t val=0;
-    auto ptr=reinterpret_cast<int32_t *>(&val);
-    node->_info.store(val);
-    ptr[0]=reinterpret_cast<int32_t>(node);
-    auto old=_tail.exchange(val);
-    reinterpret_cast<AtomicNode*>(reinterpret_cast<int32_t*>(&old)[0])->_info.store(val);
+void LFQueue::Enqueue(Node* node) {
+    node->info.store({0,0});
+    auto old=tail_.exchange({reinterpret_cast<uintptr_t>(node),0});
+    reinterpret_cast<Node*>(old.next)->info.store(tail_);
 }
-AtomicNode* LFQueue::Dequeue() {
-    AtomicNode* ret= nullptr;
-    int64_t info;
-    int64_t newHead;
+Node* LFQueue::Dequeue() {
+    NodeInfo headSnapshot,newHead;
+    Node*nextNode;
     do{
-       info=_head;
-       auto ptr=reinterpret_cast<int32_t *>(&info);
-       if(ptr[0]==0)return nullptr;
-       ret= reinterpret_cast<AtomicNode*>(ptr[0]);
-       newHead=ret->_info.load();
-       reinterpret_cast<int32_t*>(&newHead)[1]=ptr[1]+1;
-    }while(_head.compare_exchange_strong(info,newHead));
+        headSnapshot=head_;
+        nextNode=reinterpret_cast<Node*>(reinterpret_cast<Node*>(headSnapshot.next)->info.load().next);
+        if(nextNode==nullptr)return nextNode;
+        newHead=NodeInfo{reinterpret_cast<uintptr_t>(nextNode),headSnapshot.seq+1};
+    }while(head_.compare_exchange_weak(headSnapshot,newHead));
+    delete reinterpret_cast<Node*>(headSnapshot.next);
+    auto ret=new Node{nextNode->data};
     return ret;
 }
 #endif //T_RPC_LFQUEUE_H
