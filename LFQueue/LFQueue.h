@@ -9,52 +9,54 @@
 #include <cstdint>
 #include "cassert"
 #include <atomic>
-
-#include<queue>
-
-struct alignas(16) NodeInfo{
-    uintptr_t next;
-    uint64_t seq;
-};
-using AtomicNodeInfo=std::atomic<NodeInfo>;
-struct Node{
-    uintptr_t data;
-    AtomicNodeInfo info;
-};
+#include "optional"
+template<typename T>
 class LFQueue{
 private:
-    volatile AtomicNodeInfo head_,tail_;
+    struct Node{
+        T data;
+        Node* next;
+    };
+    struct alignas(16) HeadInfo{
+        Node* next;
+        uint64_t seq;
+    };
+    volatile std::atomic<HeadInfo> head_;
+    volatile std::atomic<Node*>tail_;
 public:
     LFQueue();
     ~LFQueue();
-    void Enqueue(Node*node);
-    Node* Dequeue();
+    void Enqueue(T data);
+    std::optional<T> Dequeue();
 };
-LFQueue::LFQueue() {
+template<typename T>
+LFQueue<T>::LFQueue() {
     assert(head_.is_lock_free());
-    auto ptr=new Node{0,NodeInfo{0,0}};
-    head_.store(NodeInfo{reinterpret_cast<uintptr_t>(ptr),0});
-    tail_.store(head_);
+    assert(tail_.is_lock_free());
+    auto ptr=new Node{0, nullptr};
+    head_.store({ptr,0});
+    tail_.store(ptr);
 }
-LFQueue::~LFQueue() {
+template<typename T>
+LFQueue<T>::~LFQueue() {
 
 }
-void LFQueue::Enqueue(Node* node) {
-    node->info.store({0,0});
-    auto old=tail_.exchange({reinterpret_cast<uintptr_t>(node),0});
-    reinterpret_cast<Node*>(old.next)->info.store(tail_);
+template<typename T>
+void LFQueue<T>::Enqueue(T data) {
+    auto node = new LFQueue::Node{data, nullptr};
+    auto old = tail_.exchange(node);
+    old->next=node;
 }
-Node* LFQueue::Dequeue() {
-    NodeInfo headSnapshot,newHead;
+template<typename T>
+std::optional<T> LFQueue<T>::Dequeue() {
+    HeadInfo headSnapshot,newHead;
+    headSnapshot=head_.load();
     Node*nextNode;
     do{
-        headSnapshot=head_;
-        nextNode=reinterpret_cast<Node*>(reinterpret_cast<Node*>(headSnapshot.next)->info.load().next);
-        if(nextNode==nullptr)return nextNode;
-        newHead=NodeInfo{reinterpret_cast<uintptr_t>(nextNode),headSnapshot.seq+1};
-    }while(head_.compare_exchange_weak(headSnapshot,newHead));
-    delete reinterpret_cast<Node*>(headSnapshot.next);
-    auto ret=new Node{nextNode->data};
-    return ret;
+        nextNode=headSnapshot.next->next;
+        if(nextNode==nullptr)return std::nullopt;
+        newHead=HeadInfo{nextNode,headSnapshot.seq};
+    }while(!head_.compare_exchange_strong(headSnapshot,newHead));
+    return {nextNode->data};
 }
 #endif //T_RPC_LFQUEUE_H
