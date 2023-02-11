@@ -1,0 +1,3 @@
+/home/shijiu/T-RPC/build/CMakeFiles/T_RPC.dir
+/home/shijiu/T-RPC/build/CMakeFiles/edit_cache.dir
+/home/shijiu/T-RPC/build/CMakeFiles/rebuild_cache.dir

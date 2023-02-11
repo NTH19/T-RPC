@@ -1,6 +1,10 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.22)
 project(T_RPC)
-
+enable_language(ASM)
 set(CMAKE_CXX_STANDARD 17)
-
-add_executable(T_RPC main.cpp LFQueue/LFQueue.h)
+file(GLOB_RECURSE SRC "${CMAKE_SOURCE_DIR}/tinyrpc/*.cc"  "*main.cpp" "test_tinypb_server.pb.cc" "*.S")
+SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -O2 -pthread")
+set(LIBPROTO /usr/local/lib/libprotobuf.a /usr/local/lib/libtinyxml.a)
+add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} ${LIBPROTO})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
