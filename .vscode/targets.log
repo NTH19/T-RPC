@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Feb 14 14:32:39 2023
+# Make data base, printed on Tue Feb 14 14:45:27 2023
 
 # Variables
 
@@ -70,8 +70,6 @@ CURDIR := /home/shijiu/T-RPC
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
-# environment
-VSCODE_L10N_BUNDLE_LOCATION = 
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -93,7 +91,7 @@ MAKEFILE_LIST :=
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 29849
+VSCODE_PID = 34322
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -203,7 +201,7 @@ MANAGERPID = 1905
 # environment
 LC_MEASUREMENT = zh_CN.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 29798
+GIO_LAUNCHED_DESKTOP_FILE_PID = 34274
 # environment
 _ = /snap/code/118/usr/share/code/code
 # environment
@@ -261,7 +259,7 @@ LC_IDENTIFICATION = zh_CN.UTF-8
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=125/1024=12%, Rehash=0, Collisions=5/152=3%
+# Load=124/1024=12%, Rehash=0, Collisions=4/151=3%
 
 # Pattern-specific Variable Values
 
@@ -269,9 +267,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 2051, inode 2490854): 19 files, no impossibilities.
+# . (device 2051, inode 2490854): 20 files, no impossibilities.
 
-# 19 files, no impossibilities in 1 directories.
+# 20 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -279,10 +277,10 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Files
 
+# Not a target:
  
 make: *** No rule to make target 'all'.  Stop.
 
-# Not a target:
 Makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
@@ -324,12 +322,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 27 / storage = 313 B / avg = 11 B
-# current buf: size = 8162 B / used = 313 B / count = 27 / avg = 11 B
+# strcache buffers: 1 (0) / strings = 28 / storage = 322 B / avg = 11 B
+# current buf: size = 8162 B / used = 322 B / count = 28 / avg = 11 B
 
-# strcache performance: lookups = 30 / hit rate = 10%
+# strcache performance: lookups = 31 / hit rate = 9%
 # hash-table stats:
-# Load=27/8192=0%, Rehash=0, Collisions=0/30=0%
-# Finished Make data base on Tue Feb 14 14:32:39 2023
+# Load=28/8192=0%, Rehash=0, Collisions=0/31=0%
+# Finished Make data base on Tue Feb 14 14:45:27 2023
 
  

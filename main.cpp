@@ -1,78 +1,175 @@
 #include <google/protobuf/service.h>
-#include <sstream>
 #include <atomic>
-
-#include "tinyrpc/net/tcp/tcp_server.h"
-#include "tinyrpc/net/net_address.h"
-#include "tinyrpc/net/mutex.h"
-#include "tinyrpc/net/tinypb/tinypb_rpc_dispatcher.h"
-#include "tinyrpc/comm/log.h"
-#include "tinyrpc/comm/start.h"
+#include <future>
+#include "AsyncRpc/util/start.h"
+#include "AsyncRpc/net/http/http_request.h"
+#include "AsyncRpc/net/http/http_response.h"
+#include "AsyncRpc/net/http/http_servlet.h"
+#include "AsyncRpc/net/http/http_define.h"
+#include "AsyncRpc/net/tinypb/tinypb_rpc_channel.h"
+#include "AsyncRpc/net/tinypb/tinypb_rpc_async_channel.h"
+#include "AsyncRpc/net/tinypb/tinypb_rpc_controller.h"
+#include "AsyncRpc/net/tinypb/tinypb_rpc_closure.h"
+#include "AsyncRpc/net/net_address.h"
 #include "test_tinypb_server.pb.h"
 
 
-static int i = 0;
-tinyrpc::CoroutineMutex g_cor_mutex;
+const char* html = "<html><body><h1>Welcome to TinyRPC, just enjoy it!</h1><p>%s</p></body></html>";
 
-class QueryServiceImpl : public QueryService {
+tinyrpc::IPAddress::ptr addr = std::make_shared<tinyrpc::IPAddress>("127.0.0.1", 20000);
+
+class BlockCallHttpServlet : public tinyrpc::HttpServlet {
  public:
-  QueryServiceImpl() {}
-  ~QueryServiceImpl() {}
+  BlockCallHttpServlet() = default;
+  ~BlockCallHttpServlet() = default;
 
-  void query_name(google::protobuf::RpcController* controller,
-                       const ::queryNameReq* request,
-                       ::queryNameRes* response,
-                       ::google::protobuf::Closure* done) {
-    
-    AppInfoLog << "QueryServiceImpl.query_name, req={"<< request->ShortDebugString() << "}";
+  void handle(tinyrpc::HttpRequest* req, tinyrpc::HttpResponse* res) {
+    AppDebugLog << "BlockCallHttpServlet get request ";
+    AppDebugLog << "BlockCallHttpServlet success recive http request, now to get http response";
+    setHttpCode(res, tinyrpc::HTTP_OK);
+    setHttpContentType(res, "text/html;charset=utf-8");
 
-    // DebugLog << "========================";
-    // DebugLog << "this is query_name func";
-    // DebugLog << "first begin to sleep 6s";
-    // sleep(6);
-    // DebugLog << "sleep 6s end";
+    queryAgeReq rpc_req;
+    queryAgeRes rpc_res;
+    AppDebugLog << "now to call QueryServer TinyRPC server to query who's id is " << req->m_query_maps["id"];
+    rpc_req.set_id(std::atoi(req->m_query_maps["id"].c_str()));
 
-    response->set_id(request->id());
-    response->set_name("ikerli");
+    tinyrpc::TinyPbRpcChannel channel(addr);
+    QueryService_Stub stub(&channel);
 
-    AppInfoLog << "QueryServiceImpl.query_name, req={"<< request->ShortDebugString() << "}, res={" << response->ShortDebugString() << "}";
+    tinyrpc::RpcController rpc_controller;
+    rpc_controller.SetTimeout(5000);
 
-    if (done) {
-      done->Run();
+    AppDebugLog << "BlockCallHttpServlet end to call RPC";
+    stub.query_age(&rpc_controller, &rpc_req, &rpc_res, NULL);
+    AppDebugLog << "BlockCallHttpServlet end to call RPC";
+
+    if (rpc_controller.ErrorCode() != 0) {
+      AppDebugLog << "failed to call QueryServer rpc server";
+      char buf[512];
+      sprintf(buf, html, "failed to call QueryServer rpc server");
+      setHttpBody(res, std::string(buf));
+      return;
     }
+
+    if (rpc_res.ret_code() != 0) {
+      std::stringstream ss;
+      ss << "QueryServer rpc server return bad result, ret = " << rpc_res.ret_code() << ", and res_info = " << rpc_res.res_info();
+      AppDebugLog << ss.str();
+      char buf[512];
+      sprintf(buf, html, ss.str().c_str());
+      setHttpBody(res, std::string(buf));
+      return;
+    }
+
+    std::stringstream ss;
+    ss << "Success!! Your age is," << rpc_res.age() << " and Your id is " << rpc_res.id();
+
+    char buf[512];
+    sprintf(buf, html, ss.str().c_str());
+    setHttpBody(res, std::string(buf));
 
   }
 
-  void query_age(google::protobuf::RpcController* controller,
-                       const ::queryAgeReq* request,
-                       ::queryAgeRes* response,
-                       ::google::protobuf::Closure* done) {
+  std::string getServletName() {
+    return "BlockCallHttpServlet";
+  }
 
-    AppInfoLog << "QueryServiceImpl.query_age, req={"<< request->ShortDebugString() << "}";
-    // AppInfoLog << "QueryServiceImpl.query_age, sleep 6 s begin";
-    // sleep(6);
-    // AppInfoLog << "QueryServiceImpl.query_age, sleep 6 s end";
+};
 
-    response->set_ret_code(0);
-    response->set_res_info("OK");
-    response->set_req_no(request->req_no());
-    response->set_id(request->id());
-    response->set_age(100100111);
+class NonBlockCallHttpServlet: public tinyrpc::HttpServlet {
+ public:
+  NonBlockCallHttpServlet() = default;
+  ~NonBlockCallHttpServlet() = default;
 
-    g_cor_mutex.lock();
-    AppDebugLog << "begin i = " << i;
-    sleep(1);
-    i++;
-    AppDebugLog << "end i = " << i;
-    g_cor_mutex.unlock();
+  void handle(tinyrpc::HttpRequest* req, tinyrpc::HttpResponse* res) {
+    AppInfoLog << "NonBlockCallHttpServlet get request";
+    AppDebugLog << "NonBlockCallHttpServlet success recive http request, now to get http response";
+    setHttpCode(res, tinyrpc::HTTP_OK);
+    setHttpContentType(res, "text/html;charset=utf-8");
 
-    if (done) {
-      done->Run();
+    std::shared_ptr<queryAgeReq> rpc_req = std::make_shared<queryAgeReq>();
+    std::shared_ptr<queryAgeRes> rpc_res = std::make_shared<queryAgeRes>();
+    AppDebugLog << "now to call QueryServer TinyRPC server to query who's id is " << req->m_query_maps["id"];
+    rpc_req->set_id(std::atoi(req->m_query_maps["id"].c_str()));
+
+    std::shared_ptr<tinyrpc::RpcController> rpc_controller = std::make_shared<tinyrpc::RpcController>();
+    rpc_controller->SetTimeout(10000);
+
+    AppDebugLog << "NonBlockCallHttpServlet begin to call RPC async";
+
+
+    tinyrpc::TinyPbRpcAsyncChannel::ptr async_channel = 
+      std::make_shared<tinyrpc::TinyPbRpcAsyncChannel>(addr);
+
+    auto cb = [rpc_res]() {
+      printf("call succ, res = %s\n", rpc_res->ShortDebugString().c_str());
+      AppDebugLog << "NonBlockCallHttpServlet async call end, res=" << rpc_res->ShortDebugString();
+    };
+
+    std::shared_ptr<tinyrpc::TinyPbRpcClosure> closure = std::make_shared<tinyrpc::TinyPbRpcClosure>(cb); 
+    async_channel->saveCallee(rpc_controller, rpc_req, rpc_res, closure);
+
+    QueryService_Stub stub(async_channel.get());
+
+    stub.query_age(rpc_controller.get(), rpc_req.get(), rpc_res.get(), NULL);
+    AppDebugLog << "NonBlockCallHttpServlet async end, now you can to some another thing";
+
+    async_channel->wait();
+    AppDebugLog << "wait() back, now to check is rpc call succ";
+
+    if (rpc_controller->ErrorCode() != 0) {
+      AppDebugLog << "failed to call QueryServer rpc server";
+      char buf[512];
+      sprintf(buf, html, "failed to call QueryServer rpc server");
+      setHttpBody(res, std::string(buf));
+      return;
     }
-    // printf("response = %s\n", response->ShortDebugString().c_str());
 
-    AppInfoLog << "QueryServiceImpl.query_age, res={"<< response->ShortDebugString() << "}";
+    if (rpc_res->ret_code() != 0) {
+      std::stringstream ss;
+      ss << "QueryServer rpc server return bad result, ret = " << rpc_res->ret_code() << ", and res_info = " << rpc_res->res_info();
+      AppDebugLog << ss.str();
+      char buf[512];
+      sprintf(buf, html, ss.str().c_str());
+      setHttpBody(res, std::string(buf));
+      return;
+    }
 
+    std::stringstream ss;
+    ss << "Success!! Your age is," << rpc_res->age() << " and Your id is " << rpc_res->id();
+
+    char buf[512];
+    sprintf(buf, html, ss.str().c_str());
+    setHttpBody(res, std::string(buf));
+  }
+
+  std::string getServletName() {
+    return "NonBlockCallHttpServlet";
+  }
+
+};
+
+class QPSHttpServlet : public tinyrpc::HttpServlet {
+ public:
+  QPSHttpServlet() = default;
+  ~QPSHttpServlet() = default;
+
+  void handle(tinyrpc::HttpRequest* req, tinyrpc::HttpResponse* res) {
+    AppDebugLog << "QPSHttpServlet get request";
+    setHttpCode(res, tinyrpc::HTTP_OK);
+    setHttpContentType(res, "text/html;charset=utf-8");
+
+    std::stringstream ss;
+    ss << "QPSHttpServlet Echo Success!! Your id is," << req->m_query_maps["id"];
+    char buf[512];
+    sprintf(buf, html, ss.str().c_str());
+    setHttpBody(res, std::string(buf));
+    AppDebugLog << ss.str();
+  }
+
+  std::string getServletName() {
+    return "QPSHttpServlet";
   }
 
 };
@@ -88,9 +185,11 @@ int main(int argc, char* argv[]) {
 
   tinyrpc::InitConfig(argv[1]);
 
-  REGISTER_SERVICE(QueryServiceImpl);
+  REGISTER_HTTP_SERVLET("/qps", QPSHttpServlet);
+
+  REGISTER_HTTP_SERVLET("/block", BlockCallHttpServlet);
+  REGISTER_HTTP_SERVLET("/nonblock", NonBlockCallHttpServlet);
 
   tinyrpc::StartRpcServer();
-  
   return 0;
 }
