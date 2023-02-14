@@ -7,7 +7,7 @@
 #include "AsyncRpc/net/abstract_codec.h"
 #include "AsyncRpc/net/http/http_request.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class HttpCodeC : public AbstractCodeC {
  public:

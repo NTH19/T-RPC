@@ -9,7 +9,7 @@
 #include "AsyncRpc/net/http/http_define.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class HttpRequest : public AbstractData {
  public:

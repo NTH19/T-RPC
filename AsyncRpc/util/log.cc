@@ -28,10 +28,10 @@
 
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-extern tinyrpc::Logger::ptr gRpcLogger;
-extern tinyrpc::Config::ptr gRpcConfig;
+extern AsyncRpc::Logger::ptr gRpcLogger;
+extern AsyncRpc::Config::ptr gRpcConfig;
 
 
 static std::atomic_int64_t g_rpc_log_index {0};

@@ -12,7 +12,7 @@
 #include "AsyncRpc/net/fd_event.h"
 #include "AsyncRpc/net/mutex.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 enum ReactorType {
   MainReactor = 1,    // main rewactor, only set this by main thread.
@@ -42,7 +42,7 @@ class Reactor {
 
   void addTask(std::vector<std::function<void()>> task, bool is_wakeup = true);
   
-  void addCoroutine(tinyrpc::Coroutine::ptr cor, bool is_wakeup = true);
+  void addCoroutine(AsyncRpc::Coroutine::ptr cor, bool is_wakeup = true);
 
   void wakeup();
   

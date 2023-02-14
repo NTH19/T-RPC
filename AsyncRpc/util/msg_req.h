@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class MsgReqUtil {
  public:

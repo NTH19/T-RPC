@@ -14,7 +14,7 @@
 #include "AsyncRpc/util/run_time.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 RpcChannel::RpcChannel(NetAddress::ptr addr) : m_addr(addr) {
 

@@ -16,7 +16,7 @@
 extern read_fun_ptr_t g_sys_read_fun;  // sys read func
 extern write_fun_ptr_t g_sys_write_fun;  // sys write func
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 static thread_local Reactor* t_reactor_ptr = nullptr;
 
@@ -223,7 +223,7 @@ void Reactor::loop() {
 		epoll_event re_events[MAX_EVENTS + 1];
 
     if (first_coroutine) {
-      tinyrpc::Coroutine::Resume(first_coroutine);
+      AsyncRpc::Coroutine::Resume(first_coroutine);
       first_coroutine = NULL;
     }
 
@@ -235,7 +235,7 @@ void Reactor::loop() {
         ptr = CoroutineTaskQueue::GetCoroutineTaskQueue()->pop();
         if (ptr) {
           ptr->setReactor(this);
-          tinyrpc::Coroutine::Resume(ptr->getCoroutine()); 
+          AsyncRpc::Coroutine::Resume(ptr->getCoroutine()); 
         } else {
           break;
         }
@@ -280,7 +280,7 @@ void Reactor::loop() {
 					}
 
 				} else {
-					tinyrpc::FdWraper* ptr = (tinyrpc::FdWraper*)one_event.data.ptr;
+					AsyncRpc::FdWraper* ptr = (AsyncRpc::FdWraper*)one_event.data.ptr;
           if (ptr != nullptr) {
             int fd = ptr->getFd();
 
@@ -302,7 +302,7 @@ void Reactor::loop() {
                   CoroutineTaskQueue::GetCoroutineTaskQueue()->push(ptr);
                 } else {
                   // main reactor, just resume this coroutine. it is accept coroutine. and Main Reactor only have this coroutine
-                  tinyrpc::Coroutine::Resume(ptr->getCoroutine());
+                  AsyncRpc::Coroutine::Resume(ptr->getCoroutine());
                   if (first_coroutine) {
                     first_coroutine = NULL;
                   }
@@ -398,10 +398,10 @@ void Reactor::addTask(std::vector<std::function<void()>> task, bool is_wakeup /*
   }
 }
 
-void Reactor::addCoroutine(tinyrpc::Coroutine::ptr cor, bool is_wakeup /*=true*/) {
+void Reactor::addCoroutine(AsyncRpc::Coroutine::ptr cor, bool is_wakeup /*=true*/) {
 
   auto func = [cor](){
-    tinyrpc::Coroutine::Resume(cor.get());
+    AsyncRpc::Coroutine::Resume(cor.get());
   };
   addTask(func, is_wakeup);
 }

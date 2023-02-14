@@ -6,7 +6,7 @@
 #include "AsyncRpc/coroutine/coctx.h"
 #include "AsyncRpc/util/run_time.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 int getCoroutineIndex();
 

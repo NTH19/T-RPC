@@ -11,7 +11,7 @@
 #include "AsyncRpc/util/log.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 int64_t getNowMs();
 
@@ -57,7 +57,7 @@ class TimerEvent {
 
 class FdWraper;
 
-class Timer : public tinyrpc::FdWraper {
+class Timer : public AsyncRpc::FdWraper {
 
  public:
 

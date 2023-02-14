@@ -5,7 +5,7 @@
 #include "AsyncRpc/util/log.h"
 #include "AsyncRpc/coroutine/memory.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 Memory::Memory(int block_size, int block_count) : m_block_size(block_size), m_block_count(block_count) {
   m_size = m_block_count * m_block_size;

@@ -12,7 +12,7 @@
 #include "AsyncRpc/coroutine/coroutine.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class TcpServer;
 

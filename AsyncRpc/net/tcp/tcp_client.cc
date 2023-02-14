@@ -13,7 +13,7 @@
 
 #include "AsyncRpc/net/rpc/rpc_codec.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 TcpClient::TcpClient(NetAddress::ptr addr, ProtocalType type /*= TinyPb_Protocal*/) : m_peer_addr(addr) {
 
@@ -23,7 +23,7 @@ TcpClient::TcpClient(NetAddress::ptr addr, ProtocalType type /*= TinyPb_Protocal
     ErrorLog << "call socket error, fd=-1, sys error=" << strerror(errno);
   }
   DebugLog << "TcpClient() create fd = " << m_fd;
-  m_local_addr = std::make_shared<tinyrpc::IPAddress>("127.0.0.1", 0);
+  m_local_addr = std::make_shared<AsyncRpc::IPAddress>("127.0.0.1", 0);
   m_reactor = Reactor::GetReactor();
 
   if (type == Http_Protocal) {
@@ -51,7 +51,7 @@ TcpConnection* TcpClient::getConnection() {
   return m_connection.get();
 }
 void TcpClient::resetFd() {
-  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(m_fd);
+  AsyncRpc::FdWraper::ptr fd_event = AsyncRpc::FdEventContainer::GetFdContainer()->getFdEvent(m_fd);
   fd_event->unregisterFromReactor();
   close(m_fd);
   m_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -64,12 +64,12 @@ void TcpClient::resetFd() {
 
 int TcpClient::sendAndRecvTinyPb(const std::string& msg_no, RpcStruct::pb_ptr& res) {
   bool is_timeout = false;
-  tinyrpc::Coroutine* cur_cor = tinyrpc::Coroutine::GetCurrentCoroutine();
+  AsyncRpc::Coroutine* cur_cor = AsyncRpc::Coroutine::GetCurrentCoroutine();
   auto timer_cb = [this, &is_timeout, cur_cor]() {
     InfoLog << "TcpClient timer out event occur";
     is_timeout = true;
     this->m_connection->setOverTimeFlag(true); 
-    tinyrpc::Coroutine::Resume(cur_cor);
+    AsyncRpc::Coroutine::Resume(cur_cor);
   };
   TimerEvent::ptr event = std::make_shared<TimerEvent>(m_max_timeout, false, timer_cb);
   m_reactor->getTimer()->addTimerEvent(event);

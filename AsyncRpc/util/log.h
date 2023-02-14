@@ -17,43 +17,43 @@
 #include "AsyncRpc/util/config.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-extern tinyrpc::Config::ptr gRpcConfig;
+extern AsyncRpc::Config::ptr gRpcConfig;
 
 
 #define DebugLog \
-	if (tinyrpc::OpenLog() && tinyrpc::LogLevel::DEBUG >= tinyrpc::gRpcConfig->m_log_level) \
-		tinyrpc::LogTmp(tinyrpc::LogEvent::ptr(new tinyrpc::LogEvent(tinyrpc::LogLevel::DEBUG, __FILE__, __LINE__, __func__, tinyrpc::LogType::RPC_LOG))).getStringStream()
+	if (AsyncRpc::OpenLog() && AsyncRpc::LogLevel::DEBUG >= AsyncRpc::gRpcConfig->m_log_level) \
+		AsyncRpc::LogTmp(AsyncRpc::LogEvent::ptr(new AsyncRpc::LogEvent(AsyncRpc::LogLevel::DEBUG, __FILE__, __LINE__, __func__, AsyncRpc::LogType::RPC_LOG))).getStringStream()
 
 #define InfoLog \
-	if (tinyrpc::OpenLog() && tinyrpc::LogLevel::INFO >= tinyrpc::gRpcConfig->m_log_level) \
-		tinyrpc::LogTmp(tinyrpc::LogEvent::ptr(new tinyrpc::LogEvent(tinyrpc::LogLevel::INFO, __FILE__, __LINE__, __func__, tinyrpc::LogType::RPC_LOG))).getStringStream()
+	if (AsyncRpc::OpenLog() && AsyncRpc::LogLevel::INFO >= AsyncRpc::gRpcConfig->m_log_level) \
+		AsyncRpc::LogTmp(AsyncRpc::LogEvent::ptr(new AsyncRpc::LogEvent(AsyncRpc::LogLevel::INFO, __FILE__, __LINE__, __func__, AsyncRpc::LogType::RPC_LOG))).getStringStream()
 
 #define WarnLog \
-	if (tinyrpc::OpenLog() && tinyrpc::LogLevel::WARN >= tinyrpc::gRpcConfig->m_log_level) \
-		tinyrpc::LogTmp(tinyrpc::LogEvent::ptr(new tinyrpc::LogEvent(tinyrpc::LogLevel::WARN, __FILE__, __LINE__, __func__, tinyrpc::LogType::RPC_LOG))).getStringStream()
+	if (AsyncRpc::OpenLog() && AsyncRpc::LogLevel::WARN >= AsyncRpc::gRpcConfig->m_log_level) \
+		AsyncRpc::LogTmp(AsyncRpc::LogEvent::ptr(new AsyncRpc::LogEvent(AsyncRpc::LogLevel::WARN, __FILE__, __LINE__, __func__, AsyncRpc::LogType::RPC_LOG))).getStringStream()
 
 #define ErrorLog \
-	if (tinyrpc::OpenLog() && tinyrpc::LogLevel::ERROR >= tinyrpc::gRpcConfig->m_log_level) \
-		tinyrpc::LogTmp(tinyrpc::LogEvent::ptr(new tinyrpc::LogEvent(tinyrpc::LogLevel::ERROR, __FILE__, __LINE__, __func__, tinyrpc::LogType::RPC_LOG))).getStringStream()
+	if (AsyncRpc::OpenLog() && AsyncRpc::LogLevel::ERROR >= AsyncRpc::gRpcConfig->m_log_level) \
+		AsyncRpc::LogTmp(AsyncRpc::LogEvent::ptr(new AsyncRpc::LogEvent(AsyncRpc::LogLevel::ERROR, __FILE__, __LINE__, __func__, AsyncRpc::LogType::RPC_LOG))).getStringStream()
 
 
 #define AppDebugLog \
-	if (tinyrpc::OpenLog() && tinyrpc::LogLevel::DEBUG >= tinyrpc::gRpcConfig->m_app_log_level) \
-		tinyrpc::LogTmp(tinyrpc::LogEvent::ptr(new tinyrpc::LogEvent(tinyrpc::LogLevel::DEBUG, __FILE__, __LINE__, __func__, tinyrpc::LogType::APP_LOG))).getStringStream()
+	if (AsyncRpc::OpenLog() && AsyncRpc::LogLevel::DEBUG >= AsyncRpc::gRpcConfig->m_app_log_level) \
+		AsyncRpc::LogTmp(AsyncRpc::LogEvent::ptr(new AsyncRpc::LogEvent(AsyncRpc::LogLevel::DEBUG, __FILE__, __LINE__, __func__, AsyncRpc::LogType::APP_LOG))).getStringStream()
 
 #define AppInfoLog \
-	if (tinyrpc::OpenLog() && tinyrpc::LogLevel::INFO >= tinyrpc::gRpcConfig->m_app_log_level) \
-		tinyrpc::LogTmp(tinyrpc::LogEvent::ptr(new tinyrpc::LogEvent(tinyrpc::LogLevel::INFO, __FILE__, __LINE__, __func__, tinyrpc::LogType::APP_LOG))).getStringStream()
+	if (AsyncRpc::OpenLog() && AsyncRpc::LogLevel::INFO >= AsyncRpc::gRpcConfig->m_app_log_level) \
+		AsyncRpc::LogTmp(AsyncRpc::LogEvent::ptr(new AsyncRpc::LogEvent(AsyncRpc::LogLevel::INFO, __FILE__, __LINE__, __func__, AsyncRpc::LogType::APP_LOG))).getStringStream()
 
 #define AppWarnLog \
-	if (tinyrpc::OpenLog() && tinyrpc::LogLevel::WARN >= tinyrpc::gRpcConfig->m_app_log_level) \
-		tinyrpc::LogTmp(tinyrpc::LogEvent::ptr(new tinyrpc::LogEvent(tinyrpc::LogLevel::WARN, __FILE__, __LINE__, __func__, tinyrpc::LogType::APP_LOG))).getStringStream()
+	if (AsyncRpc::OpenLog() && AsyncRpc::LogLevel::WARN >= AsyncRpc::gRpcConfig->m_app_log_level) \
+		AsyncRpc::LogTmp(AsyncRpc::LogEvent::ptr(new AsyncRpc::LogEvent(AsyncRpc::LogLevel::WARN, __FILE__, __LINE__, __func__, AsyncRpc::LogType::APP_LOG))).getStringStream()
 
 #define AppErrorLog \
-	if (tinyrpc::OpenLog() && tinyrpc::LogLevel::ERROR >= tinyrpc::gRpcConfig->m_app_log_level) \
-		tinyrpc::LogTmp(tinyrpc::LogEvent::ptr(new tinyrpc::LogEvent(tinyrpc::LogLevel::ERROR, __FILE__, __LINE__, __func__, tinyrpc::LogType::APP_LOG))).getStringStream()
+	if (AsyncRpc::OpenLog() && AsyncRpc::LogLevel::ERROR >= AsyncRpc::gRpcConfig->m_app_log_level) \
+		AsyncRpc::LogTmp(AsyncRpc::LogEvent::ptr(new AsyncRpc::LogEvent(AsyncRpc::LogLevel::ERROR, __FILE__, __LINE__, __func__, AsyncRpc::LogType::APP_LOG))).getStringStream()
 
 
 

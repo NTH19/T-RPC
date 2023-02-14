@@ -7,7 +7,7 @@
 #include <memory>
 #include "AsyncRpc/net/net_address.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class RpcController : public google::protobuf::RpcController {
 

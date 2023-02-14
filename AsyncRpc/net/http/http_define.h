@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 extern std::string g_CRLF;
 extern std::string g_CRLF_DOUBLE;

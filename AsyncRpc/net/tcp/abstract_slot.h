@@ -4,7 +4,7 @@
 #include <memory>
 #include <functional>
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 
 template<class T>

@@ -9,9 +9,9 @@
 #include "AsyncRpc/util/log.h"
 #include "AsyncRpc/coroutine/coroutine_hook.h"
 
-extern tinyrpc::Config::ptr gRpcConfig;
+extern AsyncRpc::Config::ptr gRpcConfig;
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 #ifdef DECLARE_MYSQL_PLUGIN 
 

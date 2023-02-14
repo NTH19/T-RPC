@@ -6,7 +6,7 @@
 #include "AsyncRpc/net/abstract_data.h"
 #include "AsyncRpc/net/rpc/rpc_data.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 
 class RpcCodeC: public AbstractCodeC {

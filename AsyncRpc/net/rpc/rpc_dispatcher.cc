@@ -11,7 +11,7 @@
 #include "AsyncRpc/net/rpc/rpc_codec.h"
 #include "AsyncRpc/util/msg_req.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class TcpBuffer;
 

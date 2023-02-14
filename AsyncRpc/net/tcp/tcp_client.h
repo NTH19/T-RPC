@@ -10,7 +10,7 @@
 #include "AsyncRpc/net/tcp/tcp_connection.h"
 #include "AsyncRpc/net/abstract_codec.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 
 //

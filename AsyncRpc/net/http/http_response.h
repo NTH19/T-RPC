@@ -7,7 +7,7 @@
 #include "AsyncRpc/net/abstract_data.h"
 #include "AsyncRpc/net/http/http_define.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class HttpResponse : public AbstractData {
  public:

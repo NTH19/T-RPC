@@ -15,9 +15,9 @@
 #include "AsyncRpc/net/rpc/rpc_dispatcher.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-extern tinyrpc::Config::ptr gRpcConfig;
+extern AsyncRpc::Config::ptr gRpcConfig;
 
 TcpAcceptor::TcpAcceptor(NetAddress::ptr net_addr) : m_local_addr(net_addr) {
 	
@@ -124,7 +124,7 @@ TcpServer::TcpServer(NetAddress::ptr addr, ProtocalType type /*= TinyPb_Protocal
 		m_protocal_type = TinyPb_Protocal;
 	}
 
-	m_main_reactor = tinyrpc::Reactor::GetReactor();
+	m_main_reactor = AsyncRpc::Reactor::GetReactor();
 	m_main_reactor->setReactorType(MainReactor);
 
 	m_time_wheel = std::make_shared<TcpTimeWheel>(m_main_reactor, gRpcConfig->m_timewheel_bucket_num, gRpcConfig->m_timewheel_inteval);
@@ -143,7 +143,7 @@ void TcpServer::start() {
 	m_accept_cor->setCallBack(std::bind(&TcpServer::MainAcceptCorFunc, this));
 
 	InfoLog << "resume accept coroutine";
-	tinyrpc::Coroutine::Resume(m_accept_cor.get());
+	AsyncRpc::Coroutine::Resume(m_accept_cor.get());
 
     m_io_pool->start();
 	m_main_reactor->loop();

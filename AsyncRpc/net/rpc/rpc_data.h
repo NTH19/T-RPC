@@ -7,7 +7,7 @@
 #include "AsyncRpc/net/abstract_data.h"
 #include "AsyncRpc/util/log.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class RpcStruct : public AbstractData {
  public:

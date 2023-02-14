@@ -16,7 +16,7 @@
 #include "AsyncRpc/net/http/http_servlet.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class TcpAcceptor {
 
@@ -61,7 +61,7 @@ class TcpServer {
 
   void start();
 
-  void addCoroutine(tinyrpc::Coroutine::ptr cor);
+  void addCoroutine(AsyncRpc::Coroutine::ptr cor);
 
   bool registerService(std::shared_ptr<google::protobuf::Service> service);
 

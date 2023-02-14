@@ -12,7 +12,7 @@
 
 
 static int i = 0;
-tinyrpc::CoroutineMutex g_cor_mutex;
+AsyncRpc::CoroutineMutex g_cor_mutex;
 
 class QueryServiceImpl : public QueryService {
  public:
@@ -86,11 +86,11 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
-  tinyrpc::InitConfig(argv[1]);
+  AsyncRpc::InitConfig(argv[1]);
 
   REGISTER_SERVICE(QueryServiceImpl);
 
-  tinyrpc::StartRpcServer();
+  AsyncRpc::StartRpcServer();
   
   return 0;
 }

@@ -1,7 +1,7 @@
 #ifndef TINYRPC_COROUTINE_COCTX_H
 #define TINYRPC_COROUTINE_COCTX_H 
 
-namespace tinyrpc{
+namespace AsyncRpc{
 
 enum {
   kRBP = 6,   // rbp, bottom of stack

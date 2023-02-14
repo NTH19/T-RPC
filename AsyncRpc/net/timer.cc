@@ -15,7 +15,7 @@
 
 extern read_fun_ptr_t g_sys_read_fun;  // sys read func
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 
 int64_t getNowMs() {

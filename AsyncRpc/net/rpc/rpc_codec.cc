@@ -11,7 +11,7 @@
 #include "AsyncRpc/util/msg_req.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 static const char PB_START= 0x02;     // start char
 static const char PB_END = 0x03;      // end char

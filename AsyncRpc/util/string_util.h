@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class StringUtil {
 

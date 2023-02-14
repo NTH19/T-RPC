@@ -15,17 +15,17 @@
 
 const char* html = "<html><body><h1>Welcome to TinyRPC, just enjoy it!</h1><p>%s</p></body></html>";
 
-tinyrpc::IPAddress::ptr addr = std::make_shared<tinyrpc::IPAddress>("127.0.0.1", 20000);
+AsyncRpc::IPAddress::ptr addr = std::make_shared<AsyncRpc::IPAddress>("127.0.0.1", 20000);
 
-class BlockCallHttpServlet : public tinyrpc::HttpServlet {
+class BlockCallHttpServlet : public AsyncRpc::HttpServlet {
  public:
   BlockCallHttpServlet() = default;
   ~BlockCallHttpServlet() = default;
 
-  void handle(tinyrpc::HttpRequest* req, tinyrpc::HttpResponse* res) {
+  void handle(AsyncRpc::HttpRequest* req, AsyncRpc::HttpResponse* res) {
     AppDebugLog << "BlockCallHttpServlet get request ";
     AppDebugLog << "BlockCallHttpServlet success recive http request, now to get http response";
-    setHttpCode(res, tinyrpc::HTTP_OK);
+    setHttpCode(res, AsyncRpc::HTTP_OK);
     setHttpContentType(res, "text/html;charset=utf-8");
 
     queryAgeReq rpc_req;
@@ -33,10 +33,10 @@ class BlockCallHttpServlet : public tinyrpc::HttpServlet {
     AppDebugLog << "now to call QueryServer TinyRPC server to query who's id is " << req->m_query_maps["id"];
     rpc_req.set_id(std::atoi(req->m_query_maps["id"].c_str()));
 
-    tinyrpc::RpcChannel channel(addr);
+    AsyncRpc::RpcChannel channel(addr);
     QueryService_Stub stub(&channel);
 
-    tinyrpc::RpcController rpc_controller;
+    AsyncRpc::RpcController rpc_controller;
     rpc_controller.SetTimeout(5000);
 
     AppDebugLog << "BlockCallHttpServlet end to call RPC";
@@ -77,14 +77,14 @@ class BlockCallHttpServlet : public tinyrpc::HttpServlet {
 };
 
 
-class QPSHttpServlet : public tinyrpc::HttpServlet {
+class QPSHttpServlet : public AsyncRpc::HttpServlet {
  public:
   QPSHttpServlet() = default;
   ~QPSHttpServlet() = default;
 
-  void handle(tinyrpc::HttpRequest* req, tinyrpc::HttpResponse* res) {
+  void handle(AsyncRpc::HttpRequest* req, AsyncRpc::HttpResponse* res) {
     AppDebugLog << "QPSHttpServlet get request";
-    setHttpCode(res, tinyrpc::HTTP_OK);
+    setHttpCode(res, AsyncRpc::HTTP_OK);
     setHttpContentType(res, "text/html;charset=utf-8");
 
     std::stringstream ss;
@@ -110,12 +110,12 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
-  tinyrpc::InitConfig(argv[1]);
+  AsyncRpc::InitConfig(argv[1]);
 
   REGISTER_HTTP_SERVLET("/qps", QPSHttpServlet);
 
   REGISTER_HTTP_SERVLET("/block", BlockCallHttpServlet);
 
-  tinyrpc::StartRpcServer();
+  AsyncRpc::StartRpcServer();
   return 0;
 }

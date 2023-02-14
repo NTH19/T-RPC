@@ -5,7 +5,7 @@
 #include "AsyncRpc/net/http/http_define.h"
 #include "AsyncRpc/util/log.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 extern const char* default_html_template;
 extern std::string content_type_text;

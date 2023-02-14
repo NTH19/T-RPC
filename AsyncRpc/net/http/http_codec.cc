@@ -8,7 +8,7 @@
 #include "AsyncRpc/net/http/http_request.h"
 #include "AsyncRpc/net/http/http_response.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 
 HttpCodeC::HttpCodeC() {

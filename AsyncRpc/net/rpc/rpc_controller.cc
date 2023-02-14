@@ -2,7 +2,7 @@
 #include <google/protobuf/stubs/callback.h>
 #include "AsyncRpc/net/rpc/rpc_controller.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 void RpcController::Reset() {}
 

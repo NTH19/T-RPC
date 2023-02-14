@@ -3,7 +3,7 @@
 #include <functional>
 #include "AsyncRpc/util/thread_pool.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 void* ThreadPool::MainFunction(void* ptr) {
   ThreadPool* pool = reinterpret_cast<ThreadPool*>(ptr);

@@ -5,7 +5,7 @@
 #include "AsyncRpc/net/tcp/tcp_connection_time_wheel.h"
 #include "AsyncRpc/net/timer.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 TcpTimeWheel::TcpTimeWheel(Reactor* reactor, int bucket_count, int inteval /*= 10*/) 
   : m_reactor(reactor)

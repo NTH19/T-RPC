@@ -18,7 +18,7 @@ typedef int (*socket_fun_ptr_t)(int domain, int type, int protocol);
 typedef int (*sleep_fun_ptr_t)(unsigned int seconds);
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 int accept_hook(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 

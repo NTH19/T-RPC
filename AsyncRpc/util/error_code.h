@@ -2,7 +2,7 @@
 #define TINYRPC_COMM_ERRORCODE_H
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 #ifndef SYS_ERROR_PREFIX
 #define SYS_ERROR_PREFIX(xx) 1000##xx

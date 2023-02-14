@@ -6,7 +6,7 @@
 #include "AsyncRpc/net/mutex.h"
 #include "AsyncRpc/coroutine/memory.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class CoroutinePool {
 

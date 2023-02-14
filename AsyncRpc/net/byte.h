@@ -5,7 +5,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 int32_t getInt32FromNetByte(const char* buf) {
   int32_t tmp;

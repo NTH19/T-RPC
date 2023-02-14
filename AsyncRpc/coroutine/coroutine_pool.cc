@@ -7,9 +7,9 @@
 #include "AsyncRpc/net/mutex.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-extern tinyrpc::Config::ptr gRpcConfig;
+extern AsyncRpc::Config::ptr gRpcConfig;
 
 static CoroutinePool* t_coroutine_container_ptr = nullptr; 
 

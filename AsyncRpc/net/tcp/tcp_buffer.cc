@@ -4,7 +4,7 @@
 #include "AsyncRpc/util/log.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 TcpBuffer::TcpBuffer(int size) {
 	m_buffer.resize(size);	

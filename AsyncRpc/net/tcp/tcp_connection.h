@@ -17,7 +17,7 @@
 #include "AsyncRpc/net/net_address.h"
 #include "AsyncRpc/net/mutex.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class TcpServer;
 class TcpClient;
@@ -36,9 +36,9 @@ class TcpConnection : public std::enable_shared_from_this<TcpConnection> {
  public:
  	typedef std::shared_ptr<TcpConnection> ptr;
 
-	TcpConnection(tinyrpc::TcpServer* tcp_svr, tinyrpc::IOThread* io_thread, int fd, int buff_size, NetAddress::ptr peer_addr);
+	TcpConnection(AsyncRpc::TcpServer* tcp_svr, AsyncRpc::IOThread* io_thread, int fd, int buff_size, NetAddress::ptr peer_addr);
 
-	TcpConnection(tinyrpc::TcpClient* tcp_cli, tinyrpc::Reactor* reactor, int fd, int buff_size, NetAddress::ptr peer_addr);
+	TcpConnection(AsyncRpc::TcpClient* tcp_cli, AsyncRpc::Reactor* reactor, int fd, int buff_size, NetAddress::ptr peer_addr);
 
   void setUpClient();
 

@@ -7,7 +7,7 @@
 #include "AsyncRpc/net/http/http_servlet.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class HttpDispacther : public AbstractDispatcher {
  public:

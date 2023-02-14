@@ -5,7 +5,7 @@
 #include "AsyncRpc/net/http/http_request.h"
 #include "AsyncRpc/net/http/http_response.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class HttpServlet : public std::enable_shared_from_this<HttpServlet> {
  public:

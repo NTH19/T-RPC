@@ -11,7 +11,7 @@
 #include "AsyncRpc/net/rpc/rpc_data.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class RpcDispacther : public AbstractDispatcher {
  public:

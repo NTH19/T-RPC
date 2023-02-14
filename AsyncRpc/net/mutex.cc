@@ -8,7 +8,7 @@
 
 // this file copy form sylar
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 
 CoroutineMutex::CoroutineMutex() {}
@@ -66,8 +66,8 @@ void CoroutineMutex::unlock() {
       // wakeup the first cor in sleep queue
       DebugLog << "coroutine unlock, now to resume coroutine[" << cor->getCorId() << "]";
 
-      tinyrpc::Reactor::GetReactor()->addTask([cor]() {
-        tinyrpc::Coroutine::Resume(cor);
+      AsyncRpc::Reactor::GetReactor()->addTask([cor]() {
+        AsyncRpc::Coroutine::Resume(cor);
       }, true);
     }
   }

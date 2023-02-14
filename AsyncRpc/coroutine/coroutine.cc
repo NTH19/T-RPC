@@ -6,7 +6,7 @@
 #include "AsyncRpc/util/log.h"
 #include "AsyncRpc/util/run_time.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 // main coroutine, every io thread have a main_coroutine
 static thread_local Coroutine* t_main_coroutine = NULL;

@@ -7,7 +7,7 @@
 #include "AsyncRpc/net/abstract_data.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 enum ProtocalType {
   TinyPb_Protocal = 1,

@@ -9,9 +9,9 @@
 #include "AsyncRpc/util/msg_req.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-extern tinyrpc::Config::ptr gRpcConfig;
+extern AsyncRpc::Config::ptr gRpcConfig;
 
 static thread_local std::string t_msg_req_nu;
 static thread_local std::string t_max_msg_req_nu;

@@ -11,7 +11,7 @@
 #include "AsyncRpc/coroutine/coroutine.h"
 #include "AsyncRpc/net/mutex.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class Reactor;
 
@@ -26,7 +26,7 @@ class FdWraper : public std::enable_shared_from_this<FdWraper> {
 
   typedef std::shared_ptr<FdWraper> ptr;
   
-  FdWraper(tinyrpc::Reactor* reactor, int fd = -1);
+  FdWraper(AsyncRpc::Reactor* reactor, int fd = -1);
 
   FdWraper(int fd);
 

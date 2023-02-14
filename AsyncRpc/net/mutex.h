@@ -8,7 +8,7 @@
 
 // this file copy form sylar
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 template <class T>
 struct ScopedLockImpl

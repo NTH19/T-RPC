@@ -5,16 +5,16 @@
 #include "AsyncRpc/net/tcp/tcp_server.h"
 #include "AsyncRpc/coroutine/coroutine_hook.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-tinyrpc::Config::ptr gRpcConfig;
-tinyrpc::Logger::ptr gRpcLogger;
-tinyrpc::TcpServer::ptr gRpcServer;
+AsyncRpc::Config::ptr gRpcConfig;
+AsyncRpc::Logger::ptr gRpcLogger;
+AsyncRpc::TcpServer::ptr gRpcServer;
 
 static int g_init_config = 0;
 
 void InitConfig(const char* file) {
-  tinyrpc::SetHook(false);
+  AsyncRpc::SetHook(false);
 
   #ifdef DECLARE_MYSQL_PULGIN
   int rt = mysql_library_init(0, NULL, NULL);
@@ -25,10 +25,10 @@ void InitConfig(const char* file) {
   }
   #endif
 
-  tinyrpc::SetHook(true);
+  AsyncRpc::SetHook(true);
 
   if (g_init_config == 0) {
-    gRpcConfig = std::make_shared<tinyrpc::Config>(file);
+    gRpcConfig = std::make_shared<AsyncRpc::Config>(file);
     gRpcConfig->readConf();
     g_init_config = 1;
   }

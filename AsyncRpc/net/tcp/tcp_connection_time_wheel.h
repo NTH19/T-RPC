@@ -8,7 +8,7 @@
 #include "AsyncRpc/net/reactor.h"
 #include "AsyncRpc/net/timer.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class TcpConnection;
 

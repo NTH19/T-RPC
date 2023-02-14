@@ -2,7 +2,7 @@
 #include <sstream>
 #include "AsyncRpc/net/http/http_define.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 std::string g_CRLF = "\r\n";
 std::string g_CRLF_DOUBLE = "\r\n\r\n";

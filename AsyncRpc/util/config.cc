@@ -9,10 +9,10 @@
 #include "AsyncRpc/net/net_address.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-extern tinyrpc::Logger::ptr gRpcLogger;
-extern tinyrpc::TcpServer::ptr gRpcServer;
+extern AsyncRpc::Logger::ptr gRpcLogger;
+extern AsyncRpc::TcpServer::ptr gRpcServer;
 
 Config::Config(const char* file_path) : m_file_path(std::string(file_path)) {
   m_xml_file = new TiXmlDocument();
@@ -234,7 +234,7 @@ void Config::readConf() {
   std::string protocal = std::string(net_node->FirstChildElement("protocal")->GetText());
   std::transform(protocal.begin(), protocal.end(), protocal.begin(), toupper);
 
-  tinyrpc::IPAddress::ptr addr = std::make_shared<tinyrpc::IPAddress>(ip, port);
+  AsyncRpc::IPAddress::ptr addr = std::make_shared<AsyncRpc::IPAddress>(ip, port);
 
   if (protocal == "HTTP") {
     gRpcServer = std::make_shared<TcpServer>(addr, Http_Protocal);

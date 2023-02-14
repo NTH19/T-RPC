@@ -5,7 +5,7 @@
 #include <functional>
 #include<memory>
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class RpcClosure : public google::protobuf::Closure {
  public:

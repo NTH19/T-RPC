@@ -2,11 +2,11 @@
 #include <unistd.h>
 #include "fd_event.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 static FdEventContainer* g_FdContainer = nullptr;
 
-FdWraper::FdWraper(tinyrpc::Reactor* reactor, int fd/*=-1*/) : m_fd(fd), m_reactor(reactor) {
+FdWraper::FdWraper(AsyncRpc::Reactor* reactor, int fd/*=-1*/) : m_fd(fd), m_reactor(reactor) {
     if (reactor == nullptr) {
       ErrorLog << "create reactor first";
     }
@@ -79,7 +79,7 @@ void FdWraper::updateToReactor() {
   event.data.ptr = this;
   // DebugLog << "reactor = " << m_reactor << "log m_tid =" << m_reactor->getTid();
   if (!m_reactor) {
-    m_reactor = tinyrpc::Reactor::GetReactor();
+    m_reactor = AsyncRpc::Reactor::GetReactor();
   }
 
   m_reactor->addEvent(m_fd, event);
@@ -87,7 +87,7 @@ void FdWraper::updateToReactor() {
 
 void FdWraper::unregisterFromReactor () {
   if (!m_reactor) {
-    m_reactor = tinyrpc::Reactor::GetReactor();
+    m_reactor = AsyncRpc::Reactor::GetReactor();
   }
   m_reactor->delEvent(m_fd);
   m_listen_events = 0;
@@ -165,7 +165,7 @@ FdWraper::ptr FdEventContainer::getFdEvent(int fd) {
 
   RWMutex::ReadLock rlock(m_mutex);
   if (fd < static_cast<int>(m_fds.size())) {
-    tinyrpc::FdWraper::ptr re = m_fds[fd]; 
+    AsyncRpc::FdWraper::ptr re = m_fds[fd]; 
     rlock.unlock();
     return re;
   }
@@ -176,7 +176,7 @@ FdWraper::ptr FdEventContainer::getFdEvent(int fd) {
   for (int i = m_fds.size(); i < n; ++i) {
     m_fds.push_back(std::make_shared<FdWraper>(i));
   }
-  tinyrpc::FdWraper::ptr re = m_fds[fd]; 
+  AsyncRpc::FdWraper::ptr re = m_fds[fd]; 
   wlock.unlock();
   return re;
 

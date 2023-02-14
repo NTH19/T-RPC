@@ -12,9 +12,9 @@
 #include "AsyncRpc/net/tcp/abstract_slot.h"
 #include "AsyncRpc/net/timer.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-TcpConnection::TcpConnection(tinyrpc::TcpServer* tcp_svr, tinyrpc::IOThread* io_thread, int fd, int buff_size, NetAddress::ptr peer_addr)
+TcpConnection::TcpConnection(AsyncRpc::TcpServer* tcp_svr, AsyncRpc::IOThread* io_thread, int fd, int buff_size, NetAddress::ptr peer_addr)
   : m_io_thread(io_thread), m_fd(fd), m_state(Connected), m_connection_type(ServerConnection), m_peer_addr(peer_addr) {	
   m_reactor = m_io_thread->getReactor();
 
@@ -30,7 +30,7 @@ TcpConnection::TcpConnection(tinyrpc::TcpServer* tcp_svr, tinyrpc::IOThread* io_
   DebugLog << "succ create tcp connection[" << m_state << "], fd=" << fd;
 }
 
-TcpConnection::TcpConnection(tinyrpc::TcpClient* tcp_cli, tinyrpc::Reactor* reactor, int fd, int buff_size, NetAddress::ptr peer_addr)
+TcpConnection::TcpConnection(AsyncRpc::TcpClient* tcp_cli, AsyncRpc::Reactor* reactor, int fd, int buff_size, NetAddress::ptr peer_addr)
   : m_fd(fd), m_state(NotConnected), m_connection_type(ClientConnection), m_peer_addr(peer_addr) {
   m_reactor = reactor;
 

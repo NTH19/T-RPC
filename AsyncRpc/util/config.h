@@ -10,7 +10,7 @@
 #include "tinyrpc/comm/mysql_instase.h"
 #endif
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 enum LogLevel {
 	DEBUG = 1,

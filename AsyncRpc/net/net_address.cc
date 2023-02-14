@@ -9,7 +9,7 @@
 #include "AsyncRpc/net/net_address.h"
 #include "AsyncRpc/util/log.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 bool IPAddress::CheckValidIPAddr(const std::string& addr) {
   size_t i = addr.find_first_of(":");

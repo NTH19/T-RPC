@@ -5,7 +5,7 @@
 #include <memory>
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 
 class TcpBuffer {

@@ -25,9 +25,9 @@ HOOK_SYS_FUNC(sleep);
 // static int g_max_timeout = 75000;
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-extern tinyrpc::Config::ptr gRpcConfig;
+extern AsyncRpc::Config::ptr gRpcConfig;
 
 static bool g_hook = true;
 
@@ -35,10 +35,10 @@ void SetHook(bool value) {
 	g_hook = value;
 }
 
-void toEpoll(tinyrpc::FdWraper::ptr fd_event, int events) {
+void toEpoll(AsyncRpc::FdWraper::ptr fd_event, int events) {
 	
-	tinyrpc::Coroutine* cur_cor = tinyrpc::Coroutine::GetCurrentCoroutine() ;
-	if (events & tinyrpc::IOEvent::READ) {
+	AsyncRpc::Coroutine* cur_cor = AsyncRpc::Coroutine::GetCurrentCoroutine() ;
+	if (events & AsyncRpc::IOEvent::READ) {
 		DebugLog << "fd:[" << fd_event->getFd() << "], register read event to epoll";
 		// fd_event->setCallBack(tinyrpc::IOEvent::READ, 
 		// 	[cur_cor, fd_event]() {
@@ -46,9 +46,9 @@ void toEpoll(tinyrpc::FdWraper::ptr fd_event, int events) {
 		// 	}
 		// );
 		fd_event->setCoroutine(cur_cor);
-		fd_event->addListenEvents(tinyrpc::IOEvent::READ);
+		fd_event->addListenEvents(AsyncRpc::IOEvent::READ);
 	}
-	if (events & tinyrpc::IOEvent::WRITE) {
+	if (events & AsyncRpc::IOEvent::WRITE) {
 		DebugLog << "fd:[" << fd_event->getFd() << "], register write event to epoll";
 		// fd_event->setCallBack(tinyrpc::IOEvent::WRITE, 
 		// 	[cur_cor]() {
@@ -56,24 +56,24 @@ void toEpoll(tinyrpc::FdWraper::ptr fd_event, int events) {
 		// 	}
 		// );
 		fd_event->setCoroutine(cur_cor);
-		fd_event->addListenEvents(tinyrpc::IOEvent::WRITE);
+		fd_event->addListenEvents(AsyncRpc::IOEvent::WRITE);
 	}
 	// fd_event->updateToReactor();
 }
 
 ssize_t read_hook(int fd, void *buf, size_t count) {
 	DebugLog << "this is hook read";
-  if (tinyrpc::Coroutine::IsMainCoroutine()) {
+  if (AsyncRpc::Coroutine::IsMainCoroutine()) {
     DebugLog << "hook disable, call sys read func";
     return g_sys_read_fun(fd, buf, count);
   }
 
-	tinyrpc::Reactor::GetReactor();
+	AsyncRpc::Reactor::GetReactor();
 	// assert(reactor != nullptr);
 
-  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(fd);
+  AsyncRpc::FdWraper::ptr fd_event = AsyncRpc::FdEventContainer::GetFdContainer()->getFdEvent(fd);
   if(fd_event->getReactor() == nullptr) {
-    fd_event->setReactor(tinyrpc::Reactor::GetReactor());  
+    fd_event->setReactor(AsyncRpc::Reactor::GetReactor());  
   }
 
 	// if (fd_event->isNonBlock()) {
@@ -92,12 +92,12 @@ ssize_t read_hook(int fd, void *buf, size_t count) {
     return n;
   } 
 
-	toEpoll(fd_event, tinyrpc::IOEvent::READ);
+	toEpoll(fd_event, AsyncRpc::IOEvent::READ);
 
 	DebugLog << "read func to yield";
-	tinyrpc::Coroutine::Yield();
+	AsyncRpc::Coroutine::Yield();
 
-	fd_event->delListenEvents(tinyrpc::IOEvent::READ);
+	fd_event->delListenEvents(AsyncRpc::IOEvent::READ);
 	fd_event->clearCoroutine();
 	// fd_event->updateToReactor();
 
@@ -108,16 +108,16 @@ ssize_t read_hook(int fd, void *buf, size_t count) {
 
 int accept_hook(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
 	DebugLog << "this is hook accept";
-  if (tinyrpc::Coroutine::IsMainCoroutine()) {
+  if (AsyncRpc::Coroutine::IsMainCoroutine()) {
     DebugLog << "hook disable, call sys accept func";
     return g_sys_accept_fun(sockfd, addr, addrlen);
   }
-	tinyrpc::Reactor::GetReactor();
+	AsyncRpc::Reactor::GetReactor();
 	// assert(reactor != nullptr);
 
-  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(sockfd);
+  AsyncRpc::FdWraper::ptr fd_event = AsyncRpc::FdEventContainer::GetFdContainer()->getFdEvent(sockfd);
   if(fd_event->getReactor() == nullptr) {
-    fd_event->setReactor(tinyrpc::Reactor::GetReactor());  
+    fd_event->setReactor(AsyncRpc::Reactor::GetReactor());  
   }
 
 	// if (fd_event->isNonBlock()) {
@@ -132,12 +132,12 @@ int accept_hook(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
     return n;
   } 
 
-	toEpoll(fd_event, tinyrpc::IOEvent::READ);
+	toEpoll(fd_event, AsyncRpc::IOEvent::READ);
 	
 	DebugLog << "accept func to yield";
-	tinyrpc::Coroutine::Yield();
+	AsyncRpc::Coroutine::Yield();
 
-	fd_event->delListenEvents(tinyrpc::IOEvent::READ);
+	fd_event->delListenEvents(AsyncRpc::IOEvent::READ);
 	// fd_event->updateToReactor();
 
 	DebugLog << "accept func yield back, now to call sys accept";
@@ -147,16 +147,16 @@ int accept_hook(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
 
 ssize_t write_hook(int fd, const void *buf, size_t count) {
 	DebugLog << "this is hook write";
-  if (tinyrpc::Coroutine::IsMainCoroutine()) {
+  if (AsyncRpc::Coroutine::IsMainCoroutine()) {
     DebugLog << "hook disable, call sys write func";
     return g_sys_write_fun(fd, buf, count);
   }
-	tinyrpc::Reactor::GetReactor();
+	AsyncRpc::Reactor::GetReactor();
 	// assert(reactor != nullptr);
 
-  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(fd);
+  AsyncRpc::FdWraper::ptr fd_event = AsyncRpc::FdEventContainer::GetFdContainer()->getFdEvent(fd);
   if(fd_event->getReactor() == nullptr) {
-    fd_event->setReactor(tinyrpc::Reactor::GetReactor());  
+    fd_event->setReactor(AsyncRpc::Reactor::GetReactor());  
   }
 
 	// if (fd_event->isNonBlock()) {
@@ -171,12 +171,12 @@ ssize_t write_hook(int fd, const void *buf, size_t count) {
     return n;
   }
 
-	toEpoll(fd_event, tinyrpc::IOEvent::WRITE);
+	toEpoll(fd_event, AsyncRpc::IOEvent::WRITE);
 
 	DebugLog << "write func to yield";
-	tinyrpc::Coroutine::Yield();
+	AsyncRpc::Coroutine::Yield();
 
-	fd_event->delListenEvents(tinyrpc::IOEvent::WRITE);
+	fd_event->delListenEvents(AsyncRpc::IOEvent::WRITE);
 	fd_event->clearCoroutine();
 	// fd_event->updateToReactor();
 
@@ -187,18 +187,18 @@ ssize_t write_hook(int fd, const void *buf, size_t count) {
 
 int connect_hook(int sockfd, const struct sockaddr *addr, socklen_t addrlen) {
 	DebugLog << "this is hook connect";
-  if (tinyrpc::Coroutine::IsMainCoroutine()) {
+  if (AsyncRpc::Coroutine::IsMainCoroutine()) {
     DebugLog << "hook disable, call sys connect func";
     return g_sys_connect_fun(sockfd, addr, addrlen);
   }
-	tinyrpc::Reactor* reactor = tinyrpc::Reactor::GetReactor();
+	AsyncRpc::Reactor* reactor = AsyncRpc::Reactor::GetReactor();
 	// assert(reactor != nullptr);
 
-  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(sockfd);
+  AsyncRpc::FdWraper::ptr fd_event = AsyncRpc::FdEventContainer::GetFdContainer()->getFdEvent(sockfd);
   if(fd_event->getReactor() == nullptr) {
     fd_event->setReactor(reactor);  
   }
-	tinyrpc::Coroutine* cur_cor = tinyrpc::Coroutine::GetCurrentCoroutine();
+	AsyncRpc::Coroutine* cur_cor = AsyncRpc::Coroutine::GetCurrentCoroutine();
 
 	// if (fd_event->isNonBlock()) {
 		// DebugLog << "user set nonblock, call sys func";
@@ -217,7 +217,7 @@ int connect_hook(int sockfd, const struct sockaddr *addr, socklen_t addrlen) {
 
 	DebugLog << "errno == EINPROGRESS";
 
-  toEpoll(fd_event, tinyrpc::IOEvent::WRITE);
+  toEpoll(fd_event, AsyncRpc::IOEvent::WRITE);
 
 	bool is_timeout = false;		// 是否超时
 
@@ -225,18 +225,18 @@ int connect_hook(int sockfd, const struct sockaddr *addr, socklen_t addrlen) {
   auto timeout_cb = [&is_timeout, cur_cor](){
 		// 设置超时标志，然后唤醒协程
 		is_timeout = true;
-		tinyrpc::Coroutine::Resume(cur_cor);
+		AsyncRpc::Coroutine::Resume(cur_cor);
   };
 
-  tinyrpc::TimerEvent::ptr event = std::make_shared<tinyrpc::TimerEvent>(gRpcConfig->m_max_connect_timeout, false, timeout_cb);
+  AsyncRpc::TimerEvent::ptr event = std::make_shared<AsyncRpc::TimerEvent>(gRpcConfig->m_max_connect_timeout, false, timeout_cb);
   
-  tinyrpc::Timer* timer = reactor->getTimer();  
+  AsyncRpc::Timer* timer = reactor->getTimer();  
   timer->addTimerEvent(event);
 
-  tinyrpc::Coroutine::Yield();
+  AsyncRpc::Coroutine::Yield();
 
 	// write事件需要删除，因为连接成功后后面会重新监听该fd的写事件。
-	fd_event->delListenEvents(tinyrpc::IOEvent::WRITE); 
+	fd_event->delListenEvents(AsyncRpc::IOEvent::WRITE); 
 	fd_event->clearCoroutine();
 	// fd_event->updateToReactor();
 
@@ -262,29 +262,29 @@ int connect_hook(int sockfd, const struct sockaddr *addr, socklen_t addrlen) {
 unsigned int sleep_hook(unsigned int seconds) {
 
 	DebugLog << "this is hook sleep";
-  if (tinyrpc::Coroutine::IsMainCoroutine()) {
+  if (AsyncRpc::Coroutine::IsMainCoroutine()) {
     DebugLog << "hook disable, call sys sleep func";
     return g_sys_sleep_fun(seconds);
   }
 
-	tinyrpc::Coroutine* cur_cor = tinyrpc::Coroutine::GetCurrentCoroutine();
+	AsyncRpc::Coroutine* cur_cor = AsyncRpc::Coroutine::GetCurrentCoroutine();
 
 	bool is_timeout = false;
 	auto timeout_cb = [cur_cor, &is_timeout](){
 		DebugLog << "onTime, now resume sleep cor";
 		is_timeout = true;
 		// 设置超时标志，然后唤醒协程
-		tinyrpc::Coroutine::Resume(cur_cor);
+		AsyncRpc::Coroutine::Resume(cur_cor);
   };
 
-  tinyrpc::TimerEvent::ptr event = std::make_shared<tinyrpc::TimerEvent>(1000 * seconds, false, timeout_cb);
+  AsyncRpc::TimerEvent::ptr event = std::make_shared<AsyncRpc::TimerEvent>(1000 * seconds, false, timeout_cb);
   
-  tinyrpc::Reactor::GetReactor()->getTimer()->addTimerEvent(event);
+  AsyncRpc::Reactor::GetReactor()->getTimer()->addTimerEvent(event);
 
 	DebugLog << "now to yield sleep";
 	// beacuse read or wirte maybe resume this coroutine, so when this cor be resumed, must check is timeout, otherwise should yield again
 	while (!is_timeout) {
-		tinyrpc::Coroutine::Yield();
+		AsyncRpc::Coroutine::Yield();
 	}
 
 	// 定时器也需要删除
@@ -302,42 +302,42 @@ extern "C" {
 
 
 int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
-	if (!tinyrpc::g_hook) {
+	if (!AsyncRpc::g_hook) {
 		return g_sys_accept_fun(sockfd, addr, addrlen);
 	} else {
-		return tinyrpc::accept_hook(sockfd, addr, addrlen);
+		return AsyncRpc::accept_hook(sockfd, addr, addrlen);
 	}
 }
 
 ssize_t read(int fd, void *buf, size_t count) {
-	if (!tinyrpc::g_hook) {
+	if (!AsyncRpc::g_hook) {
 		return g_sys_read_fun(fd, buf, count);
 	} else {
-		return tinyrpc::read_hook(fd, buf, count);
+		return AsyncRpc::read_hook(fd, buf, count);
 	}
 }
 
 ssize_t write(int fd, const void *buf, size_t count) {
-	if (!tinyrpc::g_hook) {
+	if (!AsyncRpc::g_hook) {
 		return g_sys_write_fun(fd, buf, count);
 	} else {
-		return tinyrpc::write_hook(fd, buf, count);
+		return AsyncRpc::write_hook(fd, buf, count);
 	}
 }
 
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen) {
-	if (!tinyrpc::g_hook) {
+	if (!AsyncRpc::g_hook) {
 		return g_sys_connect_fun(sockfd, addr, addrlen);
 	} else {
-		return tinyrpc::connect_hook(sockfd, addr, addrlen);
+		return AsyncRpc::connect_hook(sockfd, addr, addrlen);
 	}
 }
 
 unsigned int sleep(unsigned int seconds) {
-	if (!tinyrpc::g_hook) {
+	if (!AsyncRpc::g_hook) {
 		return g_sys_sleep_fun(seconds);
 	} else {
-		return tinyrpc::sleep_hook(seconds);
+		return AsyncRpc::sleep_hook(seconds);
 	}
 }
 

@@ -1,7 +1,7 @@
 #ifndef TINYRPC_NET_ABSTRACT_DATA_H
 #define TINYRPC_NET_ABSTRACT_DATA_H
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class AbstractData {
  public:

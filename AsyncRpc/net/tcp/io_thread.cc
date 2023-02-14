@@ -13,9 +13,9 @@
 #include "AsyncRpc/util/config.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
-extern tinyrpc::Config::ptr gRpcConfig;
+extern AsyncRpc::Config::ptr gRpcConfig;
 
 static thread_local Reactor* t_reactor_ptr = nullptr;
 

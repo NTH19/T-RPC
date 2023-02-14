@@ -10,7 +10,7 @@
 #include "AsyncRpc/net/mutex.h"
 #include "AsyncRpc/net/net_address.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 
 struct MySQLOption {

@@ -6,7 +6,7 @@
 #include <vector>
 #include "AsyncRpc/net/mutex.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class Memory {
  public:

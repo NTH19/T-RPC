@@ -7,7 +7,7 @@
 #include "AsyncRpc/util/msg_req.h"
 
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 void HttpDispacther::dispatch(AbstractData* data, TcpConnection* conn) {
   HttpRequest* resquest = dynamic_cast<HttpRequest*>(data);

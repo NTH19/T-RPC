@@ -6,7 +6,7 @@
 #include "AsyncRpc/net/net_address.h"
 #include "AsyncRpc/net/tcp/tcp_client.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class RpcChannel : public google::protobuf::RpcChannel {
 

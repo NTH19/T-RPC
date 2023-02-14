@@ -9874,10 +9874,10 @@ CMakeFiles/T_RPC.dir/main.cpp.o: ../main.cpp \
   ../AsyncRpc/net/http/http_request.h \
   ../AsyncRpc/net/abstract_data.h \
   ../AsyncRpc/net/http/http_define.h \
-  ../AsyncRpc/net/tinypb/rpc_codec.h \
+  ../AsyncRpc/net/rpc/rpc_codec.h \
   ../AsyncRpc/net/abstract_codec.h \
   ../AsyncRpc/net/tcp/tcp_buffer.h \
-  ../AsyncRpc/net/tinypb/rpc_data.h \
+  ../AsyncRpc/net/rpc/rpc_data.h \
   ../AsyncRpc/net/tcp/io_thread.h \
   ../AsyncRpc/net/tcp/tcp_connection_time_wheel.h \
   ../AsyncRpc/net/tcp/abstract_slot.h \
@@ -9889,11 +9889,11 @@ CMakeFiles/T_RPC.dir/main.cpp.o: ../main.cpp \
   ../AsyncRpc/net/http/http_response.h \
   ../AsyncRpc/net/http/http_servlet.h \
   ../AsyncRpc/net/http/http_define.h \
-  ../AsyncRpc/net/tinypb/tinypb_rpc_channel.h \
+  ../AsyncRpc/net/rpc/rpc_channel.h \
   ../AsyncRpc/net/tcp/tcp_client.h \
   ../AsyncRpc/coroutine/coroutine_hook.h \
-  ../AsyncRpc/net/tinypb/tinypb_rpc_controller.h \
-  ../AsyncRpc/net/tinypb/tinypb_rpc_closure.h \
+  ../AsyncRpc/net/rpc/rpc_controller.h \
+  ../AsyncRpc/net/rpc/rpc_closure.h \
   ../AsyncRpc/net/net_address.h \
   ../test_tinypb_server.pb.h \
   /usr/local/include/google/protobuf/io/coded_stream.h \
@@ -10296,12 +10296,6 @@ CMakeFiles/T_RPC.dir/test_tinypb_server.pb.cc.o: ../test_tinypb_server.pb.cc \
 
 ../test_tinypb_server.pb.h:
 
-../AsyncRpc/net/tinypb/tinypb_rpc_closure.h:
-
-../AsyncRpc/net/tinypb/tinypb_rpc_controller.h:
-
-../AsyncRpc/net/tinypb/rpc_data.h:
-
 ../AsyncRpc/util/thread_pool.cc:
 
 /usr/include/c++/11/bits/stl_numeric.h:
@@ -10329,8 +10323,6 @@ CMakeFiles/T_RPC.dir/test_tinypb_server.pb.cc.o: ../test_tinypb_server.pb.cc \
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
-
-../AsyncRpc/net/tinypb/rpc_codec.h:
 
 /usr/include/c++/11/random:
 
@@ -10991,8 +10983,6 @@ CMakeFiles/T_RPC.dir/test_tinypb_server.pb.cc.o: ../test_tinypb_server.pb.cc \
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/include/c++/11/ext/aligned_buffer.h:
-
-../AsyncRpc/net/tinypb/tinypb_rpc_channel.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 

@@ -7,7 +7,7 @@
 #include "AsyncRpc/net/abstract_data.h"
 #include "AsyncRpc/net/tcp/tcp_connection.h"
 
-namespace tinyrpc {
+namespace AsyncRpc {
 
 class TcpConnection;
 
