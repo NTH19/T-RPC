@@ -34,7 +34,7 @@ class BlockCallHttpServlet : public tinyrpc::HttpServlet {
     AppDebugLog << "now to call QueryServer TinyRPC server to query who's id is " << req->m_query_maps["id"];
     rpc_req.set_id(std::atoi(req->m_query_maps["id"].c_str()));
 
-    tinyrpc::TinyPbRpcChannel channel(addr);
+    tinyrpc::RpcChannel channel(addr);
     QueryService_Stub stub(&channel);
 
     tinyrpc::RpcController rpc_controller;
@@ -107,7 +107,7 @@ class NonBlockCallHttpServlet: public tinyrpc::HttpServlet {
       AppDebugLog << "NonBlockCallHttpServlet async call end, res=" << rpc_res->ShortDebugString();
     };
 
-    std::shared_ptr<tinyrpc::TinyPbRpcClosure> closure = std::make_shared<tinyrpc::TinyPbRpcClosure>(cb); 
+    std::shared_ptr<tinyrpc::RpcClosure> closure = std::make_shared<tinyrpc::RpcClosure>(cb); 
     async_channel->saveCallee(rpc_controller, rpc_req, rpc_res, closure);
 
     QueryService_Stub stub(async_channel.get());

@@ -195,7 +195,7 @@ CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/rpc_codec.cc.o: \
  /home/shijiu/T-RPC/AsyncRpc/net/abstract_codec.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/tcp_buffer.h \
  /home/shijiu/T-RPC/AsyncRpc/net/abstract_data.h \
- /home/shijiu/T-RPC/AsyncRpc/net/tinypb/tinypb_data.h \
+ /home/shijiu/T-RPC/AsyncRpc/net/tinypb/rpc_data.h \
  /home/shijiu/T-RPC/AsyncRpc/util/log.h \
  /usr/include/x86_64-linux-gnu/sys/time.h \
  /usr/include/x86_64-linux-gnu/sys/syscall.h \

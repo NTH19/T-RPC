@@ -10,7 +10,7 @@
 #include "AsyncRpc/net/tcp/tcp_buffer.h"
 #include "AsyncRpc/coroutine/coroutine.h"
 #include "AsyncRpc/net/http/http_request.h"
-#include "AsyncRpc/net/tinypb/rpc_codec.h"
+#include "AsyncRpc/net/rpc/rpc_codec.h"
 #include "AsyncRpc/net/tcp/io_thread.h"
 #include "AsyncRpc/net/tcp/tcp_connection_time_wheel.h"
 #include "AsyncRpc/net/tcp/abstract_slot.h"

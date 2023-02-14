@@ -330,7 +330,7 @@ CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.o: \
  /home/shijiu/T-RPC/AsyncRpc/net/tinypb/rpc_codec.h \
  /home/shijiu/T-RPC/AsyncRpc/net/abstract_codec.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/tcp_buffer.h \
- /home/shijiu/T-RPC/AsyncRpc/net/tinypb/tinypb_data.h \
+ /home/shijiu/T-RPC/AsyncRpc/net/tinypb/rpc_data.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/io_thread.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/tcp_connection_time_wheel.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/abstract_slot.h \
@@ -339,7 +339,6 @@ CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.o: \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
  /usr/include/x86_64-linux-gnu/sys/un.h \
  /home/shijiu/T-RPC/AsyncRpc/util/error_code.h \
- /home/shijiu/T-RPC/AsyncRpc/net/tinypb/tinypb_data.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tinypb/tinypb_rpc_controller.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tinypb/tinypb_rpc_closure.h \

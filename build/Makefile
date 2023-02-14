@@ -417,6 +417,102 @@ AsyncRpc/net/reactor.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/reactor.cc.s
 .PHONY : AsyncRpc/net/reactor.cc.s
 
+AsyncRpc/net/rpc/rpc_channel.o: AsyncRpc/net/rpc/rpc_channel.cc.o
+.PHONY : AsyncRpc/net/rpc/rpc_channel.o
+
+# target to build an object file
+AsyncRpc/net/rpc/rpc_channel.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_channel.cc.o
+.PHONY : AsyncRpc/net/rpc/rpc_channel.cc.o
+
+AsyncRpc/net/rpc/rpc_channel.i: AsyncRpc/net/rpc/rpc_channel.cc.i
+.PHONY : AsyncRpc/net/rpc/rpc_channel.i
+
+# target to preprocess a source file
+AsyncRpc/net/rpc/rpc_channel.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_channel.cc.i
+.PHONY : AsyncRpc/net/rpc/rpc_channel.cc.i
+
+AsyncRpc/net/rpc/rpc_channel.s: AsyncRpc/net/rpc/rpc_channel.cc.s
+.PHONY : AsyncRpc/net/rpc/rpc_channel.s
+
+# target to generate assembly for a file
+AsyncRpc/net/rpc/rpc_channel.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_channel.cc.s
+.PHONY : AsyncRpc/net/rpc/rpc_channel.cc.s
+
+AsyncRpc/net/rpc/rpc_codec.o: AsyncRpc/net/rpc/rpc_codec.cc.o
+.PHONY : AsyncRpc/net/rpc/rpc_codec.o
+
+# target to build an object file
+AsyncRpc/net/rpc/rpc_codec.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_codec.cc.o
+.PHONY : AsyncRpc/net/rpc/rpc_codec.cc.o
+
+AsyncRpc/net/rpc/rpc_codec.i: AsyncRpc/net/rpc/rpc_codec.cc.i
+.PHONY : AsyncRpc/net/rpc/rpc_codec.i
+
+# target to preprocess a source file
+AsyncRpc/net/rpc/rpc_codec.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_codec.cc.i
+.PHONY : AsyncRpc/net/rpc/rpc_codec.cc.i
+
+AsyncRpc/net/rpc/rpc_codec.s: AsyncRpc/net/rpc/rpc_codec.cc.s
+.PHONY : AsyncRpc/net/rpc/rpc_codec.s
+
+# target to generate assembly for a file
+AsyncRpc/net/rpc/rpc_codec.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_codec.cc.s
+.PHONY : AsyncRpc/net/rpc/rpc_codec.cc.s
+
+AsyncRpc/net/rpc/rpc_controller.o: AsyncRpc/net/rpc/rpc_controller.cc.o
+.PHONY : AsyncRpc/net/rpc/rpc_controller.o
+
+# target to build an object file
+AsyncRpc/net/rpc/rpc_controller.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_controller.cc.o
+.PHONY : AsyncRpc/net/rpc/rpc_controller.cc.o
+
+AsyncRpc/net/rpc/rpc_controller.i: AsyncRpc/net/rpc/rpc_controller.cc.i
+.PHONY : AsyncRpc/net/rpc/rpc_controller.i
+
+# target to preprocess a source file
+AsyncRpc/net/rpc/rpc_controller.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_controller.cc.i
+.PHONY : AsyncRpc/net/rpc/rpc_controller.cc.i
+
+AsyncRpc/net/rpc/rpc_controller.s: AsyncRpc/net/rpc/rpc_controller.cc.s
+.PHONY : AsyncRpc/net/rpc/rpc_controller.s
+
+# target to generate assembly for a file
+AsyncRpc/net/rpc/rpc_controller.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_controller.cc.s
+.PHONY : AsyncRpc/net/rpc/rpc_controller.cc.s
+
+AsyncRpc/net/rpc/rpc_dispatcher.o: AsyncRpc/net/rpc/rpc_dispatcher.cc.o
+.PHONY : AsyncRpc/net/rpc/rpc_dispatcher.o
+
+# target to build an object file
+AsyncRpc/net/rpc/rpc_dispatcher.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_dispatcher.cc.o
+.PHONY : AsyncRpc/net/rpc/rpc_dispatcher.cc.o
+
+AsyncRpc/net/rpc/rpc_dispatcher.i: AsyncRpc/net/rpc/rpc_dispatcher.cc.i
+.PHONY : AsyncRpc/net/rpc/rpc_dispatcher.i
+
+# target to preprocess a source file
+AsyncRpc/net/rpc/rpc_dispatcher.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_dispatcher.cc.i
+.PHONY : AsyncRpc/net/rpc/rpc_dispatcher.cc.i
+
+AsyncRpc/net/rpc/rpc_dispatcher.s: AsyncRpc/net/rpc/rpc_dispatcher.cc.s
+.PHONY : AsyncRpc/net/rpc/rpc_dispatcher.s
+
+# target to generate assembly for a file
+AsyncRpc/net/rpc/rpc_dispatcher.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/rpc/rpc_dispatcher.cc.s
+.PHONY : AsyncRpc/net/rpc/rpc_dispatcher.cc.s
+
 AsyncRpc/net/tcp/io_thread.o: AsyncRpc/net/tcp/io_thread.cc.o
 .PHONY : AsyncRpc/net/tcp/io_thread.o
 
@@ -584,126 +680,6 @@ AsyncRpc/net/timer.s: AsyncRpc/net/timer.cc.s
 AsyncRpc/net/timer.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/timer.cc.s
 .PHONY : AsyncRpc/net/timer.cc.s
-
-AsyncRpc/net/tinypb/rpc_codec.o: AsyncRpc/net/tinypb/rpc_codec.cc.o
-.PHONY : AsyncRpc/net/tinypb/rpc_codec.o
-
-# target to build an object file
-AsyncRpc/net/tinypb/rpc_codec.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/rpc_codec.cc.o
-.PHONY : AsyncRpc/net/tinypb/rpc_codec.cc.o
-
-AsyncRpc/net/tinypb/rpc_codec.i: AsyncRpc/net/tinypb/rpc_codec.cc.i
-.PHONY : AsyncRpc/net/tinypb/rpc_codec.i
-
-# target to preprocess a source file
-AsyncRpc/net/tinypb/rpc_codec.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/rpc_codec.cc.i
-.PHONY : AsyncRpc/net/tinypb/rpc_codec.cc.i
-
-AsyncRpc/net/tinypb/rpc_codec.s: AsyncRpc/net/tinypb/rpc_codec.cc.s
-.PHONY : AsyncRpc/net/tinypb/rpc_codec.s
-
-# target to generate assembly for a file
-AsyncRpc/net/tinypb/rpc_codec.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/rpc_codec.cc.s
-.PHONY : AsyncRpc/net/tinypb/rpc_codec.cc.s
-
-AsyncRpc/net/tinypb/tinypb_rpc_async_channel.o: AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.o
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_async_channel.o
-
-# target to build an object file
-AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.o
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.o
-
-AsyncRpc/net/tinypb/tinypb_rpc_async_channel.i: AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.i
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_async_channel.i
-
-# target to preprocess a source file
-AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.i
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.i
-
-AsyncRpc/net/tinypb/tinypb_rpc_async_channel.s: AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.s
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_async_channel.s
-
-# target to generate assembly for a file
-AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.s
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_async_channel.cc.s
-
-AsyncRpc/net/tinypb/tinypb_rpc_channel.o: AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.o
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_channel.o
-
-# target to build an object file
-AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.o
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.o
-
-AsyncRpc/net/tinypb/tinypb_rpc_channel.i: AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.i
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_channel.i
-
-# target to preprocess a source file
-AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.i
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.i
-
-AsyncRpc/net/tinypb/tinypb_rpc_channel.s: AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.s
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_channel.s
-
-# target to generate assembly for a file
-AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.s
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_channel.cc.s
-
-AsyncRpc/net/tinypb/tinypb_rpc_controller.o: AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.o
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_controller.o
-
-# target to build an object file
-AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.o
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.o
-
-AsyncRpc/net/tinypb/tinypb_rpc_controller.i: AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.i
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_controller.i
-
-# target to preprocess a source file
-AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.i
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.i
-
-AsyncRpc/net/tinypb/tinypb_rpc_controller.s: AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.s
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_controller.s
-
-# target to generate assembly for a file
-AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.s
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_controller.cc.s
-
-AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.o: AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.o
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.o
-
-# target to build an object file
-AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.o
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.o
-
-AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.i: AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.i
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.i
-
-# target to preprocess a source file
-AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.i
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.i
-
-AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.s: AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.s
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.s
-
-# target to generate assembly for a file
-AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/T_RPC.dir/build.make CMakeFiles/T_RPC.dir/AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.s
-.PHONY : AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.cc.s
 
 AsyncRpc/util/config.o: AsyncRpc/util/config.cc.o
 .PHONY : AsyncRpc/util/config.o
@@ -974,6 +950,18 @@ help:
 	@echo "... AsyncRpc/net/reactor.o"
 	@echo "... AsyncRpc/net/reactor.i"
 	@echo "... AsyncRpc/net/reactor.s"
+	@echo "... AsyncRpc/net/rpc/rpc_channel.o"
+	@echo "... AsyncRpc/net/rpc/rpc_channel.i"
+	@echo "... AsyncRpc/net/rpc/rpc_channel.s"
+	@echo "... AsyncRpc/net/rpc/rpc_codec.o"
+	@echo "... AsyncRpc/net/rpc/rpc_codec.i"
+	@echo "... AsyncRpc/net/rpc/rpc_codec.s"
+	@echo "... AsyncRpc/net/rpc/rpc_controller.o"
+	@echo "... AsyncRpc/net/rpc/rpc_controller.i"
+	@echo "... AsyncRpc/net/rpc/rpc_controller.s"
+	@echo "... AsyncRpc/net/rpc/rpc_dispatcher.o"
+	@echo "... AsyncRpc/net/rpc/rpc_dispatcher.i"
+	@echo "... AsyncRpc/net/rpc/rpc_dispatcher.s"
 	@echo "... AsyncRpc/net/tcp/io_thread.o"
 	@echo "... AsyncRpc/net/tcp/io_thread.i"
 	@echo "... AsyncRpc/net/tcp/io_thread.s"
@@ -995,21 +983,6 @@ help:
 	@echo "... AsyncRpc/net/timer.o"
 	@echo "... AsyncRpc/net/timer.i"
 	@echo "... AsyncRpc/net/timer.s"
-	@echo "... AsyncRpc/net/tinypb/rpc_codec.o"
-	@echo "... AsyncRpc/net/tinypb/rpc_codec.i"
-	@echo "... AsyncRpc/net/tinypb/rpc_codec.s"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_async_channel.o"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_async_channel.i"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_async_channel.s"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_channel.o"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_channel.i"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_channel.s"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_controller.o"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_controller.i"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_controller.s"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.o"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.i"
-	@echo "... AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.s"
 	@echo "... AsyncRpc/util/config.o"
 	@echo "... AsyncRpc/util/config.i"
 	@echo "... AsyncRpc/util/config.s"

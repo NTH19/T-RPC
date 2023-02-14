@@ -297,10 +297,10 @@ CMakeFiles/T_RPC.dir/AsyncRpc/net/http/http_dispatcher.cc.o: \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/tcp_buffer.h \
  /home/shijiu/T-RPC/AsyncRpc/net/http/http_request.h \
  /home/shijiu/T-RPC/AsyncRpc/net/http/http_define.h \
- /home/shijiu/T-RPC/AsyncRpc/net/tinypb/rpc_codec.h \
+ /home/shijiu/T-RPC/AsyncRpc/net/rpc/rpc_codec.h \
  /home/shijiu/T-RPC/AsyncRpc/net/abstract_codec.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/tcp_buffer.h \
- /home/shijiu/T-RPC/AsyncRpc/net/tinypb/tinypb_data.h \
+ /home/shijiu/T-RPC/AsyncRpc/net/rpc/rpc_data.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/io_thread.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/tcp_connection_time_wheel.h \
  /home/shijiu/T-RPC/AsyncRpc/net/tcp/abstract_slot.h \

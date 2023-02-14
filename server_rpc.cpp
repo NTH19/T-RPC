@@ -5,7 +5,7 @@
 #include "AsyncRpc/net/tcp/tcp_server.h"
 #include "AsyncRpc/net/net_address.h"
 #include "AsyncRpc/net/mutex.h"
-#include "AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.h"
+#include "AsyncRpc/net/rpc/rpc_dispatcher.h"
 #include "AsyncRpc/util/log.h"
 #include "AsyncRpc/util/start.h"
 #include "test_tinypb_server.pb.h"

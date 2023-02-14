@@ -12,7 +12,7 @@
 #include "AsyncRpc/util/config.h"
 #include "AsyncRpc/net/http/http_codec.h"
 #include "AsyncRpc/net/http/http_dispatcher.h"
-#include "AsyncRpc/net/tinypb/tinypb_rpc_dispatcher.h"
+#include "AsyncRpc/net/rpc/rpc_dispatcher.h"
 
 
 namespace tinyrpc {
