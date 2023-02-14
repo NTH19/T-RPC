@@ -51,10 +51,10 @@ void TinyPbRpcAsyncChannel::CallMethod(const google::protobuf::MethodDescriptor*
     google::protobuf::Message* response, 
     google::protobuf::Closure* done) {
   
-  TinyPbRpcController* rpc_controller = dynamic_cast<TinyPbRpcController*>(controller);
+  RpcController* rpc_controller = dynamic_cast<RpcController*>(controller);
   if (!m_is_pre_set) {
     ErrorLog << "Error! must call [saveCallee()] function before [CallMethod()]"; 
-    TinyPbRpcController* rpc_controller = dynamic_cast<TinyPbRpcController*>(controller);
+    RpcController* rpc_controller = dynamic_cast<RpcController*>(controller);
     rpc_controller->SetError(ERROR_NOT_SET_ASYNC_PRE_CALL, "Error! must call [saveCallee()] function before [CallMethod()];");
     m_is_finished = true;
     return;

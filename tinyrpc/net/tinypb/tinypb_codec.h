@@ -9,13 +9,13 @@
 namespace tinyrpc {
 
 
-class TinyPbCodeC: public AbstractCodeC {
+class RpcCodeC: public AbstractCodeC {
  public:
   // typedef std::shared_ptr<TinyPbCodeC> ptr;
 
-  TinyPbCodeC();
+  RpcCodeC();
 
-  ~TinyPbCodeC ();
+  ~RpcCodeC ();
 
   // overwrite
   void encode(TcpBuffer* buf, AbstractData* data);
@@ -26,7 +26,7 @@ class TinyPbCodeC: public AbstractCodeC {
   // overwrite
   virtual ProtocalType getProtocalType();
 
-  const char* encodePbData(TinyPbStruct* data, int& len);
+  const char* encodePbData(RpcStruct* data, int& len);
 
 
 };

@@ -55,9 +55,9 @@ class TimerEvent {
 
 };
 
-class FdEvent;
+class FdWraper;
 
-class Timer : public tinyrpc::FdEvent {
+class Timer : public tinyrpc::FdWraper {
 
  public:
 

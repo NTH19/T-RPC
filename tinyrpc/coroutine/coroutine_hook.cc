@@ -35,7 +35,7 @@ void SetHook(bool value) {
 	g_hook = value;
 }
 
-void toEpoll(tinyrpc::FdEvent::ptr fd_event, int events) {
+void toEpoll(tinyrpc::FdWraper::ptr fd_event, int events) {
 	
 	tinyrpc::Coroutine* cur_cor = tinyrpc::Coroutine::GetCurrentCoroutine() ;
 	if (events & tinyrpc::IOEvent::READ) {
@@ -71,7 +71,7 @@ ssize_t read_hook(int fd, void *buf, size_t count) {
 	tinyrpc::Reactor::GetReactor();
 	// assert(reactor != nullptr);
 
-  tinyrpc::FdEvent::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(fd);
+  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(fd);
   if(fd_event->getReactor() == nullptr) {
     fd_event->setReactor(tinyrpc::Reactor::GetReactor());  
   }
@@ -115,7 +115,7 @@ int accept_hook(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
 	tinyrpc::Reactor::GetReactor();
 	// assert(reactor != nullptr);
 
-  tinyrpc::FdEvent::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(sockfd);
+  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(sockfd);
   if(fd_event->getReactor() == nullptr) {
     fd_event->setReactor(tinyrpc::Reactor::GetReactor());  
   }
@@ -154,7 +154,7 @@ ssize_t write_hook(int fd, const void *buf, size_t count) {
 	tinyrpc::Reactor::GetReactor();
 	// assert(reactor != nullptr);
 
-  tinyrpc::FdEvent::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(fd);
+  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(fd);
   if(fd_event->getReactor() == nullptr) {
     fd_event->setReactor(tinyrpc::Reactor::GetReactor());  
   }
@@ -194,7 +194,7 @@ int connect_hook(int sockfd, const struct sockaddr *addr, socklen_t addrlen) {
 	tinyrpc::Reactor* reactor = tinyrpc::Reactor::GetReactor();
 	// assert(reactor != nullptr);
 
-  tinyrpc::FdEvent::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(sockfd);
+  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(sockfd);
   if(fd_event->getReactor() == nullptr) {
     fd_event->setReactor(reactor);  
   }

@@ -19,7 +19,7 @@ enum ReactorType {
   SubReactor = 2      // child reactor, every io thread is this type
 };
 
-class FdEvent;
+class FdWraper;
 class Timer;
 
 // typedef std::shared_ptr<Timer> TimerPtr;
@@ -102,12 +102,12 @@ class CoroutineTaskQueue {
  public:
   static CoroutineTaskQueue* GetCoroutineTaskQueue();
 
-  void push(FdEvent* fd);
+  void push(FdWraper* fd);
 
-  FdEvent* pop();
+  FdWraper* pop();
 
  private:
-  std::queue<FdEvent*> m_task;
+  std::queue<FdWraper*> m_task;
   Mutex m_mutex;                    // mutex
 };
 

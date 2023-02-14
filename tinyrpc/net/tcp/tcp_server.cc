@@ -64,7 +64,7 @@ void TcpAcceptor::init() {
 }
 
 TcpAcceptor::~TcpAcceptor() {
-  FdEvent::ptr fd_event = FdEventContainer::GetFdContainer()->getFdEvent(m_fd);
+  FdWraper::ptr fd_event = FdEventContainer::GetFdContainer()->getFdEvent(m_fd);
   fd_event->unregisterFromReactor();
 	if (m_fd != -1) {
 		close(m_fd);
@@ -119,8 +119,8 @@ TcpServer::TcpServer(NetAddress::ptr addr, ProtocalType type /*= TinyPb_Protocal
 		m_codec = std::make_shared<HttpCodeC>();
 		m_protocal_type = Http_Protocal;
 	} else {
-		m_dispatcher = std::make_shared<TinyPbRpcDispacther>();
-		m_codec = std::make_shared<TinyPbCodeC>();
+		m_dispatcher = std::make_shared<RpcDispacther>();
+		m_codec = std::make_shared<RpcCodeC>();
 		m_protocal_type = TinyPb_Protocal;
 	}
 
@@ -190,7 +190,7 @@ void TcpServer::addCoroutine(Coroutine::ptr cor) {
 bool TcpServer::registerService(std::shared_ptr<google::protobuf::Service> service) {
 	if (m_protocal_type == TinyPb_Protocal) {
 		if (service) {
-			dynamic_cast<TinyPbRpcDispacther*>(m_dispatcher.get())->registerService(service);
+			dynamic_cast<RpcDispacther*>(m_dispatcher.get())->registerService(service);
 		} else {
 			ErrorLog << "register service error, service ptr is nullptr";
 			return false;

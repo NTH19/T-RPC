@@ -25,7 +25,7 @@ int64_t getNowMs() {
   return re;
 }
 
-Timer::Timer(Reactor* reactor) : FdEvent(reactor) {
+Timer::Timer(Reactor* reactor) : FdWraper(reactor) {
 
   m_fd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK|TFD_CLOEXEC);
   DebugLog << "m_timer fd = " << m_fd;

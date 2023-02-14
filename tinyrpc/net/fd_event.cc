@@ -6,20 +6,20 @@ namespace tinyrpc {
 
 static FdEventContainer* g_FdContainer = nullptr;
 
-FdEvent::FdEvent(tinyrpc::Reactor* reactor, int fd/*=-1*/) : m_fd(fd), m_reactor(reactor) {
+FdWraper::FdWraper(tinyrpc::Reactor* reactor, int fd/*=-1*/) : m_fd(fd), m_reactor(reactor) {
     if (reactor == nullptr) {
       ErrorLog << "create reactor first";
     }
     // assert(reactor != nullptr);
 }
 
-FdEvent::FdEvent(int fd) : m_fd(fd) {
+FdWraper::FdWraper(int fd) : m_fd(fd) {
 
 }
 
-FdEvent::~FdEvent() {}
+FdWraper::~FdWraper() {}
 
-void FdEvent::handleEvent(int flag) {
+void FdWraper::handleEvent(int flag) {
 
   if (flag == READ) {
     m_read_callback();
@@ -31,7 +31,7 @@ void FdEvent::handleEvent(int flag) {
 
 }
 
-void FdEvent::setCallBack(IOEvent flag, std::function<void()> cb) {
+void FdWraper::setCallBack(IOEvent flag, std::function<void()> cb) {
   if (flag == READ) {
     m_read_callback = cb;
   } else if (flag == WRITE) {
@@ -41,7 +41,7 @@ void FdEvent::setCallBack(IOEvent flag, std::function<void()> cb) {
   }
 }
 
-std::function<void()> FdEvent::getCallBack(IOEvent flag) const {
+std::function<void()> FdWraper::getCallBack(IOEvent flag) const {
   if (flag == READ) {
     return m_read_callback;
   } else if (flag == WRITE) {
@@ -50,7 +50,7 @@ std::function<void()> FdEvent::getCallBack(IOEvent flag) const {
   return nullptr;
 }
 
-void FdEvent::addListenEvents(IOEvent event) {
+void FdWraper::addListenEvents(IOEvent event) {
   if (m_listen_events & event) {
     DebugLog << "already has this event, skip";
     return;
@@ -60,7 +60,7 @@ void FdEvent::addListenEvents(IOEvent event) {
   // DebugLog << "add succ";
 }
 
-void FdEvent::delListenEvents(IOEvent event) {
+void FdWraper::delListenEvents(IOEvent event) {
   if (m_listen_events & event) {
 
     DebugLog << "delete succ";
@@ -72,7 +72,7 @@ void FdEvent::delListenEvents(IOEvent event) {
 
 }
 
-void FdEvent::updateToReactor() {
+void FdWraper::updateToReactor() {
 
   epoll_event event;
   event.events = m_listen_events;
@@ -85,7 +85,7 @@ void FdEvent::updateToReactor() {
   m_reactor->addEvent(m_fd, event);
 }
 
-void FdEvent::unregisterFromReactor () {
+void FdWraper::unregisterFromReactor () {
   if (!m_reactor) {
     m_reactor = tinyrpc::Reactor::GetReactor();
   }
@@ -95,27 +95,27 @@ void FdEvent::unregisterFromReactor () {
   m_write_callback = nullptr;
 }
 
-int FdEvent::getFd() const {
+int FdWraper::getFd() const {
   return m_fd;
 }
 
-void FdEvent::setFd(const int fd) {
+void FdWraper::setFd(const int fd) {
   m_fd = fd;
 }
 
-int FdEvent::getListenEvents() const {
+int FdWraper::getListenEvents() const {
   return m_listen_events; 
 }
 
-Reactor* FdEvent::getReactor() const {
+Reactor* FdWraper::getReactor() const {
   return m_reactor;
 }
 
-void FdEvent::setReactor(Reactor* r) {
+void FdWraper::setReactor(Reactor* r) {
   m_reactor = r;
 }
 
-void FdEvent::setNonBlock() {
+void FdWraper::setNonBlock() {
   if (m_fd == -1) {
     ErrorLog << "error, fd=-1";
     return;
@@ -137,7 +137,7 @@ void FdEvent::setNonBlock() {
 
 }
 
-bool FdEvent::isNonBlock() {
+bool FdWraper::isNonBlock() {
   if (m_fd == -1) {
     ErrorLog << "error, fd=-1";
     return false;
@@ -147,25 +147,25 @@ bool FdEvent::isNonBlock() {
 
 }
 
-void FdEvent::setCoroutine(Coroutine* cor) {
+void FdWraper::setCoroutine(Coroutine* cor) {
   m_coroutine = cor;
 }
 
-void FdEvent::clearCoroutine() {
+void FdWraper::clearCoroutine() {
   m_coroutine = nullptr;
 }
 
-Coroutine* FdEvent::getCoroutine() {
+Coroutine* FdWraper::getCoroutine() {
   return m_coroutine;
 }
 
 
 
-FdEvent::ptr FdEventContainer::getFdEvent(int fd) {
+FdWraper::ptr FdEventContainer::getFdEvent(int fd) {
 
   RWMutex::ReadLock rlock(m_mutex);
   if (fd < static_cast<int>(m_fds.size())) {
-    tinyrpc::FdEvent::ptr re = m_fds[fd]; 
+    tinyrpc::FdWraper::ptr re = m_fds[fd]; 
     rlock.unlock();
     return re;
   }
@@ -174,9 +174,9 @@ FdEvent::ptr FdEventContainer::getFdEvent(int fd) {
   RWMutex::WriteLock wlock(m_mutex);
   int n = (int)(fd * 1.5);
   for (int i = m_fds.size(); i < n; ++i) {
-    m_fds.push_back(std::make_shared<FdEvent>(i));
+    m_fds.push_back(std::make_shared<FdWraper>(i));
   }
-  tinyrpc::FdEvent::ptr re = m_fds[fd]; 
+  tinyrpc::FdWraper::ptr re = m_fds[fd]; 
   wlock.unlock();
   return re;
 
@@ -184,7 +184,7 @@ FdEvent::ptr FdEventContainer::getFdEvent(int fd) {
 
 FdEventContainer::FdEventContainer(int size) {
   for(int i = 0; i < size; ++i) {
-    m_fds.push_back(std::make_shared<FdEvent>(i));
+    m_fds.push_back(std::make_shared<FdWraper>(i));
   }
 
 }

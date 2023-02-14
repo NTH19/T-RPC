@@ -9,15 +9,15 @@
 
 namespace tinyrpc {
 
-class TinyPbStruct : public AbstractData {
+class RpcStruct : public AbstractData {
  public:
-  typedef std::shared_ptr<TinyPbStruct> pb_ptr;
-  TinyPbStruct() = default;
-  ~TinyPbStruct() = default;
-  TinyPbStruct(const TinyPbStruct& ) = default;
-  TinyPbStruct& operator=(const TinyPbStruct& ) = default;
-  TinyPbStruct(TinyPbStruct&&) = default;
-  TinyPbStruct& operator=(TinyPbStruct&&) = default;
+  typedef std::shared_ptr<RpcStruct> pb_ptr;
+  RpcStruct() = default;
+  ~RpcStruct() = default;
+  RpcStruct(const RpcStruct& ) = default;
+  RpcStruct& operator=(const RpcStruct& ) = default;
+  RpcStruct(RpcStruct&&) = default;
+  RpcStruct& operator=(RpcStruct&&) = default;
 
   /*
   **  min of package is: 1 + 4 + 4 + 4 + 4 + 4 + 4 + 1 = 26 bytes

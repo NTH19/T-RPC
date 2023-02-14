@@ -181,7 +181,7 @@ void TcpConnection::execute() {
   while(m_read_buffer->readAble() > 0) {
     std::shared_ptr<AbstractData> data;
     if (m_codec->getProtocalType() == TinyPb_Protocal) {
-      data = std::make_shared<TinyPbStruct>();
+      data = std::make_shared<RpcStruct>();
     } else {
       data = std::make_shared<HttpRequest>();
     }
@@ -199,7 +199,7 @@ void TcpConnection::execute() {
       // DebugLog << "contine parse next package";
     } else if (m_connection_type == ClientConnection) {
       // TODO:
-      std::shared_ptr<TinyPbStruct> tmp = std::dynamic_pointer_cast<TinyPbStruct>(data);
+      std::shared_ptr<RpcStruct> tmp = std::dynamic_pointer_cast<RpcStruct>(data);
       if (tmp) {
         m_reply_datas.insert(std::make_pair(tmp->msg_req, tmp));
       }
@@ -294,7 +294,7 @@ TcpBuffer* TcpConnection::getOutBuffer() {
   return m_write_buffer.get();
 }
 
-bool TcpConnection::getResPackageData(const std::string& msg_req, TinyPbStruct::pb_ptr& pb_struct) {
+bool TcpConnection::getResPackageData(const std::string& msg_req, RpcStruct::pb_ptr& pb_struct) {
   auto it = m_reply_datas.find(msg_req);
   if (it != m_reply_datas.end()) {
     DebugLog << "return a resdata";

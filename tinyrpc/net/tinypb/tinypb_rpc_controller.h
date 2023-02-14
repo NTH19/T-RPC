@@ -9,15 +9,15 @@
 
 namespace tinyrpc {
 
-class TinyPbRpcController : public google::protobuf::RpcController {
+class RpcController : public google::protobuf::RpcController {
 
  public:
-  typedef std::shared_ptr<TinyPbRpcController> ptr;
+  typedef std::shared_ptr<RpcController> ptr;
   // Client-side methods ---------------------------------------------
 
-  TinyPbRpcController() = default;
+  RpcController() = default;
 
-  ~TinyPbRpcController() = default;
+  ~RpcController() = default;
 
   void Reset() override;
 

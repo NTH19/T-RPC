@@ -17,21 +17,21 @@ static const char PB_START= 0x02;     // start char
 static const char PB_END = 0x03;      // end char
 static const int MSG_REQ_LEN = 20;    // default length of msg_req
 
-TinyPbCodeC::TinyPbCodeC() {
+RpcCodeC::RpcCodeC() {
 
 }
 
-TinyPbCodeC::~TinyPbCodeC() {
+RpcCodeC::~RpcCodeC() {
 
 }
 
-void TinyPbCodeC::encode(TcpBuffer* buf, AbstractData* data) {
+void RpcCodeC::encode(TcpBuffer* buf, AbstractData* data) {
   if (!buf || !data) {
     ErrorLog << "encode error! buf or data nullptr";
     return;
   }
   // DebugLog << "test encode start";
-  TinyPbStruct* tmp = dynamic_cast<TinyPbStruct*>(data);
+  RpcStruct* tmp = dynamic_cast<RpcStruct*>(data);
 
   int len = 0;
   const char* re = encodePbData(tmp, len);
@@ -54,7 +54,7 @@ void TinyPbCodeC::encode(TcpBuffer* buf, AbstractData* data) {
 
 }
 
-const char* TinyPbCodeC::encodePbData(TinyPbStruct* data, int& len) {
+const char* RpcCodeC::encodePbData(RpcStruct* data, int& len) {
   if (data->service_full_name.empty()) {
     ErrorLog << "parse error, service_full_name is empty";
     data->encode_succ = false;
@@ -146,7 +146,7 @@ const char* TinyPbCodeC::encodePbData(TinyPbStruct* data, int& len) {
 
 }
 
-void TinyPbCodeC::decode(TcpBuffer* buf, AbstractData* data) {
+void RpcCodeC::decode(TcpBuffer* buf, AbstractData* data) {
 
   if (!buf || !data) {
     ErrorLog << "decode error! buf or data nullptr";
@@ -197,7 +197,7 @@ void TinyPbCodeC::decode(TcpBuffer* buf, AbstractData* data) {
   DebugLog << "m_read_buffer size=" << buf->getBufferVector().size() << "rd=" << buf->readIndex() << "wd=" << buf->writeIndex();
 
   // TinyPbStruct pb_struct;
-  TinyPbStruct* pb_struct = dynamic_cast<TinyPbStruct*>(data);
+  RpcStruct* pb_struct = dynamic_cast<RpcStruct*>(data);
   pb_struct->pk_len = pk_len;
   pb_struct->decode_succ = false;
 
@@ -296,7 +296,7 @@ void TinyPbCodeC::decode(TcpBuffer* buf, AbstractData* data) {
 }
 
 
-ProtocalType TinyPbCodeC::getProtocalType() {
+ProtocalType RpcCodeC::getProtocalType() {
   return TinyPb_Protocal;
 }
 

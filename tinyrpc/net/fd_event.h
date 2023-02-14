@@ -21,16 +21,16 @@ enum IOEvent {
   ETModel = EPOLLET,
 };
 
-class FdEvent : public std::enable_shared_from_this<FdEvent> {
+class FdWraper : public std::enable_shared_from_this<FdWraper> {
  public:
 
-  typedef std::shared_ptr<FdEvent> ptr;
+  typedef std::shared_ptr<FdWraper> ptr;
   
-  FdEvent(tinyrpc::Reactor* reactor, int fd = -1);
+  FdWraper(tinyrpc::Reactor* reactor, int fd = -1);
 
-  FdEvent(int fd);
+  FdWraper(int fd);
 
-  virtual ~FdEvent();
+  virtual ~FdWraper();
 
   void handleEvent(int flag);
 
@@ -88,14 +88,14 @@ class FdEventContainer {
  public:
   FdEventContainer(int size);
 
-  FdEvent::ptr getFdEvent(int fd); 
+  FdWraper::ptr getFdEvent(int fd); 
 
  public:
   static FdEventContainer* GetFdContainer();
 
  private:
   RWMutex m_mutex;
-  std::vector<FdEvent::ptr> m_fds;
+  std::vector<FdWraper::ptr> m_fds;
 
 };
 

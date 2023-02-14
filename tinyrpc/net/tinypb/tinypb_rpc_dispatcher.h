@@ -13,14 +13,14 @@
 
 namespace tinyrpc {
 
-class TinyPbRpcDispacther : public AbstractDispatcher {
+class RpcDispacther : public AbstractDispatcher {
  public:
 
   // typedef std::shared_ptr<TinyPbRpcDispacther> ptr;
   typedef std::shared_ptr<google::protobuf::Service> service_ptr;
 
-  TinyPbRpcDispacther() = default;
-  ~TinyPbRpcDispacther() = default;
+  RpcDispacther() = default;
+  ~RpcDispacther() = default;
 
   void dispatch(AbstractData* data, TcpConnection* conn);
 

@@ -28,7 +28,7 @@ TcpClient::TcpClient(NetAddress::ptr addr, ProtocalType type /*= TinyPb_Protocal
   if (type == Http_Protocal) {
 		m_codec = std::make_shared<HttpCodeC>();
 	} else {
-		m_codec = std::make_shared<TinyPbCodeC>();
+		m_codec = std::make_shared<RpcCodeC>();
 	}
 
   m_connection = std::make_shared<TcpConnection>(this, m_reactor, m_fd, 128, m_peer_addr);
@@ -50,7 +50,7 @@ TcpConnection* TcpClient::getConnection() {
   return m_connection.get();
 }
 void TcpClient::resetFd() {
-  tinyrpc::FdEvent::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(m_fd);
+  tinyrpc::FdWraper::ptr fd_event = tinyrpc::FdEventContainer::GetFdContainer()->getFdEvent(m_fd);
   fd_event->unregisterFromReactor();
   close(m_fd);
   m_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -61,7 +61,7 @@ void TcpClient::resetFd() {
   }
 }
 
-int TcpClient::sendAndRecvTinyPb(const std::string& msg_no, TinyPbStruct::pb_ptr& res) {
+int TcpClient::sendAndRecvTinyPb(const std::string& msg_no, RpcStruct::pb_ptr& res) {
   bool is_timeout = false;
   tinyrpc::Coroutine* cur_cor = tinyrpc::Coroutine::GetCurrentCoroutine();
   auto timer_cb = [this, &is_timeout, cur_cor]() {

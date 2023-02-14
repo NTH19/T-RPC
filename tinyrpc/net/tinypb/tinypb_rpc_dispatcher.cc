@@ -15,8 +15,8 @@ namespace tinyrpc {
 
 class TcpBuffer;
 
-void TinyPbRpcDispacther::dispatch(AbstractData* data, TcpConnection* conn) {
-  TinyPbStruct* tmp = dynamic_cast<TinyPbStruct*>(data);
+void RpcDispacther::dispatch(AbstractData* data, TcpConnection* conn) {
+  RpcStruct* tmp = dynamic_cast<RpcStruct*>(data);
 
   if (tmp == nullptr) {
     ErrorLog << "dynamic_cast error";
@@ -31,7 +31,7 @@ void TinyPbRpcDispacther::dispatch(AbstractData* data, TcpConnection* conn) {
   std::string service_name;
   std::string method_name;
 
-  TinyPbStruct reply_pk;
+  RpcStruct reply_pk;
   reply_pk.service_full_name = tmp->service_full_name;
   reply_pk.msg_req = tmp->msg_req;
   if (reply_pk.msg_req.empty()) {
@@ -100,7 +100,7 @@ void TinyPbRpcDispacther::dispatch(AbstractData* data, TcpConnection* conn) {
 
   DebugLog << reply_pk.msg_req << "|response.name = " << response->GetDescriptor()->full_name();
 
-  TinyPbRpcController rpc_controller;
+  RpcController rpc_controller;
   rpc_controller.SetMsgReq(reply_pk.msg_req);
   rpc_controller.SetMethodName(method_name);
   rpc_controller.SetMethodFullName(tmp->service_full_name);
@@ -131,7 +131,7 @@ void TinyPbRpcDispacther::dispatch(AbstractData* data, TcpConnection* conn) {
 }
 
 
-bool TinyPbRpcDispacther::parseServiceFullName(const std::string& full_name, std::string& service_name, std::string& method_name) {
+bool RpcDispacther::parseServiceFullName(const std::string& full_name, std::string& service_name, std::string& method_name) {
   if (full_name.empty()) {
     ErrorLog << "service_full_name empty";
     return false;
@@ -151,7 +151,7 @@ bool TinyPbRpcDispacther::parseServiceFullName(const std::string& full_name, std
 
 }
 
-void TinyPbRpcDispacther::registerService(service_ptr service) {
+void RpcDispacther::registerService(service_ptr service) {
   std::string service_name = service->GetDescriptor()->full_name();
   m_service_map[service_name] = service;
   InfoLog << "succ register service[" << service_name << "]!"; 

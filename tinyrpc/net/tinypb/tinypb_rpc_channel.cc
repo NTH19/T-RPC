@@ -26,8 +26,8 @@ void TinyPbRpcChannel::CallMethod(const google::protobuf::MethodDescriptor* meth
     google::protobuf::Message* response, 
     google::protobuf::Closure* done) {
 
-  TinyPbStruct pb_struct;
-  TinyPbRpcController* rpc_controller = dynamic_cast<TinyPbRpcController*>(controller);
+  RpcStruct pb_struct;
+  RpcController* rpc_controller = dynamic_cast<RpcController*>(controller);
   if (!rpc_controller) {
     ErrorLog << "call failed. falid to dynamic cast TinyPbRpcController";
     return;
@@ -72,7 +72,7 @@ void TinyPbRpcChannel::CallMethod(const google::protobuf::MethodDescriptor* meth
   InfoLog << "============================================================";
   m_client->setTimeout(rpc_controller->Timeout());
 
-  TinyPbStruct::pb_ptr res_data;
+  RpcStruct::pb_ptr res_data;
   int rt = m_client->sendAndRecvTinyPb(pb_struct.msg_req, res_data);
   if (rt != 0) {
     rpc_controller->SetError(rt, m_client->getErrInfo());

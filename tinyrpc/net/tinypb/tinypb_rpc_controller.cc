@@ -4,87 +4,87 @@
 
 namespace tinyrpc {
 
-void TinyPbRpcController::Reset() {}
+void RpcController::Reset() {}
 
-bool TinyPbRpcController::Failed() const {
+bool RpcController::Failed() const {
   return m_is_failed;
 }
 
-std::string TinyPbRpcController::ErrorText() const {
+std::string RpcController::ErrorText() const {
   return m_error_info;
 }
 
-void TinyPbRpcController::StartCancel() {}
+void RpcController::StartCancel() {}
 
-void TinyPbRpcController::SetFailed(const std::string& reason) {
+void RpcController::SetFailed(const std::string& reason) {
   m_is_failed = true;
   m_error_info = reason;
 }
 
-bool TinyPbRpcController::IsCanceled() const {
+bool RpcController::IsCanceled() const {
   return false;
 }
 
-void TinyPbRpcController::NotifyOnCancel(google::protobuf::Closure* callback) {
+void RpcController::NotifyOnCancel(google::protobuf::Closure* callback) {
 
 }
 
-void TinyPbRpcController::SetErrorCode(const int error_code) {
+void RpcController::SetErrorCode(const int error_code) {
   m_error_code = error_code;
 }
 
-int TinyPbRpcController::ErrorCode() const {
+int RpcController::ErrorCode() const {
   return m_error_code; 
 }
 
-const std::string& TinyPbRpcController::MsgSeq() const {
+const std::string& RpcController::MsgSeq() const {
   return m_msg_req;
 }
 
-void TinyPbRpcController::SetMsgReq(const std::string& msg_req) {
+void RpcController::SetMsgReq(const std::string& msg_req) {
   m_msg_req = msg_req;
 }
 
-void TinyPbRpcController::SetError(const int err_code, const std::string& err_info) {
+void RpcController::SetError(const int err_code, const std::string& err_info) {
   SetFailed(err_info);
   SetErrorCode(err_code);
 }
 
-void TinyPbRpcController::SetPeerAddr(NetAddress::ptr addr) {
+void RpcController::SetPeerAddr(NetAddress::ptr addr) {
   m_peer_addr = addr;
 }
 
-void TinyPbRpcController::SetLocalAddr(NetAddress::ptr addr) {
+void RpcController::SetLocalAddr(NetAddress::ptr addr) {
   m_local_addr = addr;
 }
-NetAddress::ptr TinyPbRpcController::PeerAddr() {
+NetAddress::ptr RpcController::PeerAddr() {
   return m_peer_addr;
 }
   
-NetAddress::ptr TinyPbRpcController::LocalAddr() {
+NetAddress::ptr RpcController::LocalAddr() {
   return m_local_addr;
 }
 
-void TinyPbRpcController::SetTimeout(const int timeout) {
+void RpcController::SetTimeout(const int timeout) {
   m_timeout = timeout;
 }
-int TinyPbRpcController::Timeout() const {
+int RpcController::Timeout() const {
   return m_timeout;
 }
 
-void TinyPbRpcController::SetMethodName(const std::string& name) {
+void RpcController::SetMethodName(const std::string& name) {
   m_method_name = name;
 }
 
-std::string TinyPbRpcController::GetMethodName() {
+std::string RpcController::GetMethodName() {
   return m_method_name;
 }
 
-void TinyPbRpcController::SetMethodFullName(const std::string& name) {
+void RpcController::SetMethodFullName(const std::string& name) {
   m_full_name = name;
 }
 
-std::string TinyPbRpcController::GetMethodFullName() {
+std::string RpcController::GetMethodFullName() {
   return m_full_name;
 }
 

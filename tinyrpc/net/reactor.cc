@@ -229,7 +229,7 @@ void Reactor::loop() {
 
     // main reactor need't to resume coroutine in global CoroutineTaskQueue, only io thread do this work
     if (m_reactor_type != MainReactor) {
-      FdEvent* ptr = NULL;
+      FdWraper* ptr = NULL;
       // ptr->setReactor(NULL);
       while(1) {
         ptr = CoroutineTaskQueue::GetCoroutineTaskQueue()->pop();
@@ -280,7 +280,7 @@ void Reactor::loop() {
 					}
 
 				} else {
-					tinyrpc::FdEvent* ptr = (tinyrpc::FdEvent*)one_event.data.ptr;
+					tinyrpc::FdWraper* ptr = (tinyrpc::FdWraper*)one_event.data.ptr;
           if (ptr != nullptr) {
             int fd = ptr->getFd();
 
@@ -432,14 +432,14 @@ CoroutineTaskQueue* CoroutineTaskQueue::GetCoroutineTaskQueue() {
 
 }
 
-void CoroutineTaskQueue::push(FdEvent* cor) {
+void CoroutineTaskQueue::push(FdWraper* cor) {
   Mutex::Lock lock(m_mutex);
   m_task.push(cor);
   lock.unlock();
 }
 
-FdEvent* CoroutineTaskQueue::pop() {
-  FdEvent* re = nullptr;
+FdWraper* CoroutineTaskQueue::pop() {
+  FdWraper* re = nullptr;
   Mutex::Lock lock(m_mutex);
   if (m_task.size() >= 1) {
     re = m_task.front();
